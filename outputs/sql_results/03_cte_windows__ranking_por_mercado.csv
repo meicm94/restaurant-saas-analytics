@@ -1,0 +1,26 @@
+market,posicion,restaurant_id,restaurant_name,gmv_eur,pct_gmv_mercado
+DE,1,R-0328,Sushi Cologne 0328,54959.58,4.94
+DE,2,R-0334,Sushi Frankfurt 0334,53738.02,4.83
+DE,3,R-0023,Kebab Munich 0023,50476.26,4.54
+DE,4,R-0297,Thai Hamburg 0297,46766.48,4.2
+DE,5,R-0305,Nordic Berlin 0305,45161.63,4.06
+DK,1,R-0424,Pizza Aarhus 0424,129313.85,4.48
+DK,2,R-0126,Burger Aalborg 0126,107853.56,3.74
+DK,3,R-0429,Nordic Aarhus 0429,98889.89,3.43
+DK,4,R-0323,Pizza Aarhus 0323,77268.81,2.68
+DK,5,R-0314,Sushi Aalborg 0314,72424.25,2.51
+NO,1,R-0446,Thai Bergen 0446,141648.0,18.08
+NO,2,R-0538,Pizza Bergen 0538,57864.28,7.39
+NO,3,R-0164,Kebab Trondheim 0164,56989.42,7.28
+NO,4,R-0232,Kebab Bergen 0232,52710.72,6.73
+NO,5,R-0338,Kebab Bergen 0338,26967.65,3.44
+SE,1,R-0553,Burger Uppsala 0553,38897.19,7.11
+SE,2,R-0547,Kebab Stockholm 0547,34015.63,6.22
+SE,3,R-0110,Pizza Uppsala 0110,31042.95,5.68
+SE,4,R-0158,Indian Uppsala 0158,29423.57,5.38
+SE,5,R-0015,Kebab Gothenburg 0015,28977.18,5.3
+UK,1,R-0210,Nordic Leeds 0210,119876.85,5.3
+UK,2,R-0010,Sushi Bristol 0010,116201.0,5.14
+UK,3,R-0367,Indian Leeds 0367,92044.83,4.07
+UK,4,R-0352,Pizza Leeds 0352,74006.92,3.27
+UK,5,R-0005,Kebab Birmingham 0005,63588.58,2.81

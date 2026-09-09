@@ -1,0 +1,43 @@
+{
+  "regresion_gmv": {
+    "r2_prueba": 0.87,
+    "mae_prueba_eur": 383.83,
+    "rmse_prueba_eur": 587.38,
+    "r2_linea_base": 0.867,
+    "mae_linea_base_eur": 390.77,
+    "r2_validacion_cruzada_media": 0.85,
+    "r2_validacion_cruzada_desv": 0.048,
+    "n_entrenamiento": 2366,
+    "n_prueba": 1006
+  },
+  "clasificacion_churn": {
+    "auc_validacion_cruzada_media": 0.697,
+    "auc_validacion_cruzada_desv": 0.035,
+    "auc_prueba": 0.739,
+    "average_precision_prueba": 0.118,
+    "tasa_base_bajas_prueba": 0.0355,
+    "precision": 0.072,
+    "recall": 0.676,
+    "exactitud": 0.678,
+    "umbral": 0.5,
+    "captura_en_top10pct": 0.324,
+    "lift_top10pct": 3.24
+  },
+  "segmentacion": {
+    "k_elegido": 4,
+    "silueta": 0.141,
+    "criterio_k": "silueta plana; k fijado por criterio de negocio",
+    "segmentos": {
+      "Ticket alto": 136,
+      "Larga cola": 137,
+      "Motor de volumen": 174,
+      "Alta carga de soporte": 45
+    },
+    "pct_baja_por_segmento": {
+      "Ticket alto": 0.243,
+      "Larga cola": 0.394,
+      "Motor de volumen": 0.184,
+      "Alta carga de soporte": 0.289
+    }
+  }
+}

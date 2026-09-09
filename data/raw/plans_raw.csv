@@ -1,0 +1,5 @@
+plan_id,plan_name,monthly_price_eur,commission_rate
+PL-01,Starter,49.0,0.03
+PL-02,Growth,99.0,0.02
+PL-03,Pro,199.0,0.012
+PL-04,Enterprise,349.0,0.006

@@ -1,0 +1,16 @@
+restaurant_id,restaurant_name,market,cuisine_type,pedidos,gmv_eur,ticket_medio_eur
+R-0446,Thai Bergen 0446,NO,Thai,3427,141648.0,41.33
+R-0424,Pizza Aarhus 0424,DK,Pizza,4124,129313.85,31.36
+R-0210,Nordic Leeds 0210,UK,Nordic,1891,119876.85,63.39
+R-0010,Sushi Bristol 0010,UK,Sushi,2471,116201.0,47.03
+R-0126,Burger Aalborg 0126,DK,Burger,3757,107853.56,28.71
+R-0429,Nordic Aarhus 0429,DK,Nordic,1444,98889.89,68.48
+R-0367,Indian Leeds 0367,UK,Indian,2473,92044.83,37.22
+R-0323,Pizza Aarhus 0323,DK,Pizza,2586,77268.81,29.88
+R-0352,Pizza Leeds 0352,UK,Pizza,2267,74006.92,32.65
+R-0314,Sushi Aalborg 0314,DK,Sushi,1346,72424.25,53.81
+R-0005,Kebab Birmingham 0005,UK,Kebab,3090,63588.58,20.58
+R-0357,Pizza Aarhus 0357,DK,Pizza,1966,60876.13,30.96
+R-0447,Pizza Birmingham 0447,UK,Pizza,2624,59448.06,22.66
+R-0162,Burger Esbjerg 0162,DK,Burger,2705,59054.91,21.83
+R-0538,Pizza Bergen 0538,NO,Pizza,2012,57864.28,28.76

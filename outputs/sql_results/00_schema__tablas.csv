@@ -1,0 +1,9 @@
+tabla,n_columnas
+dim_campaign,7
+dim_date,9
+dim_plan,4
+dim_restaurant,12
+fact_campaign_assignment,4
+fact_order,10
+fact_subscription,14
+fact_support_ticket,7

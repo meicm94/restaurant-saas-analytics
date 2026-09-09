@@ -1,0 +1,601 @@
+restaurant_id,restaurant_name,market,market_name,city,city_size,cuisine_type,is_chain,acquisition_channel,signup_date,signup_month,signup_cohort
+R-0001,Chinese Cologne 0001,DE,Alemania,Cologne,Mid,Chinese,1,Direct sales,2026-08-14,2026-08-01,2026-08
+R-0002,Chinese Bristol 0002,UK,Reino Unido,Bristol,Mid,Chinese,0,Referral,2025-09-02,2025-09-01,2025-09
+R-0003,Burger Esbjerg 0003,DK,Dinamarca,Esbjerg,Metro,Burger,1,Inbound,2025-12-12,2025-12-01,2025-12
+R-0004,Pizza Cologne 0004,DE,Alemania,Cologne,Metro,Pizza,0,Inbound,2026-03-05,2026-03-01,2026-03
+R-0005,Kebab Birmingham 0005,UK,Reino Unido,Birmingham,Metro,Kebab,1,Referral,2025-11-17,2025-11-01,2025-11
+R-0006,Indian Munich 0006,DE,Alemania,Munich,Metro,Indian,1,Direct sales,2025-03-13,2025-03-01,2025-03
+R-0007,Pizza Esbjerg 0007,DK,Dinamarca,Esbjerg,Small,Pizza,0,Referral,2026-04-03,2026-04-01,2026-04
+R-0008,Pizza Esbjerg 0008,DK,Dinamarca,Esbjerg,Small,Pizza,0,Partner,2026-04-18,2026-04-01,2026-04
+R-0009,Pizza Copenhagen 0009,DK,Dinamarca,Copenhagen,Small,Pizza,0,Paid search,2025-09-18,2025-09-01,2025-09
+R-0010,Sushi Bristol 0010,UK,Reino Unido,Bristol,Mid,Sushi,0,Direct sales,2025-01-09,2025-01-01,2025-01
+R-0011,Pizza Stavanger 0011,NO,Noruega,Stavanger,Mid,Pizza,0,Paid search,2026-06-07,2026-06-01,2026-06
+R-0012,Indian Stockholm 0012,SE,Suecia,Stockholm,Small,Indian,0,Partner,2026-01-28,2026-01-01,2026-01
+R-0013,Pizza Stavanger 0013,NO,Noruega,Stavanger,Mid,Pizza,0,Paid search,2025-06-05,2025-06-01,2025-06
+R-0014,Kebab Bristol 0014,UK,Reino Unido,Bristol,Metro,Kebab,0,Direct sales,2026-04-21,2026-04-01,2026-04
+R-0015,Kebab Gothenburg 0015,SE,Suecia,Gothenburg,Mid,Kebab,1,Partner,2025-05-01,2025-05-01,2025-05
+R-0016,Kebab Munich 0016,DE,Alemania,Munich,Mid,Kebab,0,Partner,2026-02-07,2026-02-01,2026-02
+R-0017,Pizza Odense 0017,DK,Dinamarca,Odense,Small,Pizza,0,Direct sales,2025-05-19,2025-05-01,2025-05
+R-0018,Sushi Frankfurt 0018,DE,Alemania,Frankfurt,Mid,Sushi,0,Direct sales,2026-06-12,2026-06-01,2026-06
+R-0019,Nordic Esbjerg 0019,DK,Dinamarca,Esbjerg,Small,Nordic,0,Direct sales,2026-05-27,2026-05-01,2026-05
+R-0020,Burger Odense 0020,DK,Dinamarca,Odense,Metro,Burger,0,Partner,2025-10-15,2025-10-01,2025-10
+R-0021,Kebab Manchester 0021,UK,Reino Unido,Manchester,Mid,Kebab,0,Paid search,2026-04-25,2026-04-01,2026-04
+R-0022,Kebab Stockholm 0022,SE,Suecia,Stockholm,Mid,Kebab,0,Direct sales,2026-08-25,2026-08-01,2026-08
+R-0023,Kebab Munich 0023,DE,Alemania,Munich,Small,Kebab,1,Inbound,2025-04-15,2025-04-01,2025-04
+R-0024,Pizza Aarhus 0024,DK,Dinamarca,Aarhus,Small,Pizza,0,Paid search,2025-10-05,2025-10-01,2025-10
+R-0025,Pizza Stavanger 0025,NO,Noruega,Stavanger,Mid,Unknown,0,Direct sales,2025-01-20,2025-01-01,2025-01
+R-0026,Chinese Trondheim 0026,NO,Noruega,Trondheim,Metro,Chinese,0,Paid search,2026-03-09,2026-03-01,2026-03
+R-0027,Pizza Copenhagen 0027,DK,Dinamarca,Copenhagen,Mid,Pizza,0,Referral,2025-07-01,2025-07-01,2025-07
+R-0028,Pizza London 0028,UK,Reino Unido,London,Mid,Pizza,0,Partner,2025-08-27,2025-08-01,2025-08
+R-0029,Burger Aarhus 0029,DK,Dinamarca,Aarhus,Mid,Burger,0,Direct sales,2026-02-28,2026-02-01,2026-02
+R-0030,Pizza London 0030,UK,Reino Unido,London,Metro,Pizza,0,Inbound,2025-11-04,2025-11-01,2025-11
+R-0031,Kebab Copenhagen 0031,DK,Dinamarca,Copenhagen,Mid,Kebab,0,Inbound,2026-03-18,2026-03-01,2026-03
+R-0032,Indian Leeds 0032,UK,Reino Unido,Leeds,Metro,Unknown,0,Referral,2025-12-17,2025-12-01,2025-12
+R-0033,Burger Trondheim 0033,NO,Noruega,Trondheim,Metro,Burger,0,Paid search,2025-04-26,2025-04-01,2025-04
+R-0034,Pizza Aalborg 0034,DK,Dinamarca,Aalborg,Metro,Pizza,0,Paid search,2026-08-17,2026-08-01,2026-08
+R-0035,Nordic Aarhus 0035,DK,Dinamarca,Aarhus,Metro,Unknown,0,Inbound,2025-08-06,2025-08-01,2025-08
+R-0036,Kebab Aalborg 0036,DK,Dinamarca,Aalborg,Metro,Kebab,0,Inbound,2025-12-12,2025-12-01,2025-12
+R-0037,Thai Esbjerg 0037,DK,Dinamarca,Esbjerg,Metro,Thai,0,Inbound,2025-06-28,2025-06-01,2025-06
+R-0038,Indian Bristol 0038,UK,Reino Unido,Bristol,Small,Indian,0,Direct sales,2026-08-15,2026-08-01,2026-08
+R-0039,Burger Frankfurt 0039,DE,Alemania,Frankfurt,Metro,Burger,1,Inbound,2026-05-24,2026-05-01,2026-05
+R-0040,Burger Oslo 0040,NO,Noruega,Oslo,Metro,Burger,1,Paid search,2026-03-02,2026-03-01,2026-03
+R-0041,Pizza Manchester 0041,UK,Reino Unido,Manchester,Metro,Pizza,0,Inbound,2026-03-21,2026-03-01,2026-03
+R-0042,Thai Aalborg 0042,DK,Dinamarca,Aalborg,Small,Thai,0,Partner,2025-08-11,2025-08-01,2025-08
+R-0043,Pizza Copenhagen 0043,DK,Dinamarca,Copenhagen,Metro,Pizza,0,Paid search,2026-03-03,2026-03-01,2026-03
+R-0044,Kebab Bristol 0044,UK,Reino Unido,Bristol,Mid,Kebab,0,Paid search,2025-07-24,2025-07-01,2025-07
+R-0045,Nordic Hamburg 0045,DE,Alemania,Hamburg,Mid,Nordic,0,Paid search,2026-01-26,2026-01-01,2026-01
+R-0046,Kebab Esbjerg 0046,DK,Dinamarca,Esbjerg,Metro,Kebab,1,Partner,2025-04-14,2025-04-01,2025-04
+R-0047,Burger Copenhagen 0047,DK,Dinamarca,Copenhagen,Metro,Burger,0,Direct sales,2026-05-16,2026-05-01,2026-05
+R-0048,Pizza Bristol 0048,UK,Reino Unido,Bristol,Metro,Pizza,1,Direct sales,2026-07-23,2026-07-01,2026-07
+R-0049,Pizza Trondheim 0049,NO,Noruega,Trondheim,Mid,Pizza,0,Partner,2025-07-20,2025-07-01,2025-07
+R-0050,Pizza Aalborg 0050,DK,Dinamarca,Aalborg,Metro,Unknown,0,Referral,2025-01-10,2025-01-01,2025-01
+R-0051,Vegetarian Aalborg 0051,DK,Dinamarca,Aalborg,Metro,Vegetarian,1,Paid search,2026-08-16,2026-08-01,2026-08
+R-0052,Pizza Frankfurt 0052,DE,Alemania,Frankfurt,Mid,Pizza,0,Inbound,2026-07-26,2026-07-01,2026-07
+R-0053,Indian Bristol 0053,UK,Reino Unido,Bristol,Mid,Indian,0,Partner,2025-03-01,2025-03-01,2025-03
+R-0054,Chinese Bristol 0054,UK,Reino Unido,Bristol,Metro,Chinese,0,Partner,2026-05-23,2026-05-01,2026-05
+R-0055,Burger Aarhus 0055,DK,Dinamarca,Aarhus,Mid,Burger,0,Partner,2025-10-31,2025-10-01,2025-10
+R-0056,Thai Aarhus 0056,DK,Dinamarca,Aarhus,Metro,Thai,0,Paid search,2025-07-06,2025-07-01,2025-07
+R-0057,Thai London 0057,UK,Reino Unido,London,Mid,Thai,1,Paid search,2025-07-30,2025-07-01,2025-07
+R-0058,Chinese Birmingham 0058,UK,Reino Unido,Birmingham,Mid,Chinese,0,Referral,2025-05-04,2025-05-01,2025-05
+R-0059,Pizza Aalborg 0059,DK,Dinamarca,Aalborg,Small,Pizza,1,Inbound,2025-07-30,2025-07-01,2025-07
+R-0060,Pizza Aarhus 0060,DK,Dinamarca,Aarhus,Small,Pizza,0,Inbound,2026-05-08,2026-05-01,2026-05
+R-0061,Pizza Aarhus 0061,DK,Dinamarca,Aarhus,Metro,Pizza,1,Partner,2025-04-17,2025-04-01,2025-04
+R-0062,Nordic Bristol 0062,UK,Reino Unido,Bristol,Metro,Nordic,1,Referral,2025-09-05,2025-09-01,2025-09
+R-0063,Burger Esbjerg 0063,DK,Dinamarca,Esbjerg,Metro,Burger,1,Direct sales,2026-03-02,2026-03-01,2026-03
+R-0064,Chinese Copenhagen 0064,DK,Dinamarca,Copenhagen,Metro,Chinese,0,Direct sales,2026-07-22,2026-07-01,2026-07
+R-0065,Thai Bergen 0065,NO,Noruega,Bergen,Metro,Thai,0,Partner,2025-11-13,2025-11-01,2025-11
+R-0066,Pizza Esbjerg 0066,DK,Dinamarca,Esbjerg,Metro,Pizza,1,Direct sales,2025-08-21,2025-08-01,2025-08
+R-0067,Thai Malmo 0067,SE,Suecia,Malmo,Metro,Thai,0,Paid search,2026-07-13,2026-07-01,2026-07
+R-0068,Chinese Stavanger 0068,NO,Noruega,Stavanger,Small,Chinese,0,Inbound,2026-05-29,2026-05-01,2026-05
+R-0069,Pizza Hamburg 0069,DE,Alemania,Hamburg,Metro,Pizza,0,Referral,2026-05-27,2026-05-01,2026-05
+R-0070,Pizza Gothenburg 0070,SE,Suecia,Gothenburg,Metro,Pizza,0,Direct sales,2025-08-31,2025-08-01,2025-08
+R-0071,Kebab Stockholm 0071,SE,Suecia,Stockholm,Metro,Kebab,0,Inbound,2026-08-31,2026-08-01,2026-08
+R-0072,Indian Aarhus 0072,DK,Dinamarca,Aarhus,Mid,Indian,0,Direct sales,2025-05-24,2025-05-01,2025-05
+R-0073,Pizza Leeds 0073,UK,Reino Unido,Leeds,Metro,Pizza,0,Direct sales,2026-06-25,2026-06-01,2026-06
+R-0074,Pizza Odense 0074,DK,Dinamarca,Odense,Mid,Pizza,1,Referral,2025-03-07,2025-03-01,2025-03
+R-0075,Pizza Uppsala 0075,SE,Suecia,Uppsala,Metro,Pizza,0,Inbound,2025-08-28,2025-08-01,2025-08
+R-0076,Chinese Aarhus 0076,DK,Dinamarca,Aarhus,Mid,Chinese,0,Partner,2025-08-24,2025-08-01,2025-08
+R-0077,Burger Oslo 0077,NO,Noruega,Oslo,Small,Unknown,1,Partner,2025-06-15,2025-06-01,2025-06
+R-0078,Pizza Aarhus 0078,DK,Dinamarca,Aarhus,Metro,Unknown,0,Paid search,2026-02-11,2026-02-01,2026-02
+R-0079,Vegetarian Cologne 0079,DE,Alemania,Cologne,Metro,Vegetarian,0,Referral,2025-09-16,2025-09-01,2025-09
+R-0080,Pizza Aarhus 0080,DK,Dinamarca,Aarhus,Small,Pizza,0,Partner,2025-10-06,2025-10-01,2025-10
+R-0081,Sushi Manchester 0081,UK,Reino Unido,Manchester,Metro,Sushi,0,Inbound,2025-03-18,2025-03-01,2025-03
+R-0082,Nordic Frankfurt 0082,DE,Alemania,Frankfurt,Metro,Nordic,0,Partner,2026-02-02,2026-02-01,2026-02
+R-0083,Chinese Frankfurt 0083,DE,Alemania,Frankfurt,Metro,Chinese,0,Inbound,2025-08-11,2025-08-01,2025-08
+R-0084,Indian Copenhagen 0084,DK,Dinamarca,Copenhagen,Mid,Indian,0,Inbound,2026-08-04,2026-08-01,2026-08
+R-0085,Burger Esbjerg 0085,DK,Dinamarca,Esbjerg,Mid,Burger,1,Direct sales,2026-03-17,2026-03-01,2026-03
+R-0086,Indian Stockholm 0086,SE,Suecia,Stockholm,Small,Indian,1,Inbound,2026-03-13,2026-03-01,2026-03
+R-0087,Pizza Odense 0087,DK,Dinamarca,Odense,Small,Pizza,0,Direct sales,2025-04-28,2025-04-01,2025-04
+R-0088,Sushi Aalborg 0088,DK,Dinamarca,Aalborg,Small,Sushi,1,Paid search,2026-07-06,2026-07-01,2026-07
+R-0089,Burger Gothenburg 0089,SE,Suecia,Gothenburg,Mid,Burger,0,Direct sales,2025-10-22,2025-10-01,2025-10
+R-0090,Kebab Uppsala 0090,SE,Suecia,Uppsala,Small,Kebab,0,Direct sales,2025-07-07,2025-07-01,2025-07
+R-0091,Nordic Leeds 0091,UK,Reino Unido,Leeds,Metro,Nordic,1,Inbound,2025-07-27,2025-07-01,2025-07
+R-0092,Pizza Aalborg 0092,DK,Dinamarca,Aalborg,Small,Pizza,0,Inbound,2025-04-22,2025-04-01,2025-04
+R-0093,Pizza Aalborg 0093,DK,Dinamarca,Aalborg,Small,Pizza,0,Referral,2026-07-20,2026-07-01,2026-07
+R-0094,Vegetarian Cologne 0094,DE,Alemania,Cologne,Metro,Vegetarian,0,Inbound,2026-06-21,2026-06-01,2026-06
+R-0095,Vegetarian Odense 0095,DK,Dinamarca,Odense,Metro,Vegetarian,0,Referral,2025-08-04,2025-08-01,2025-08
+R-0096,Thai Aalborg 0096,DK,Dinamarca,Aalborg,Metro,Thai,0,Inbound,2026-05-18,2026-05-01,2026-05
+R-0097,Sushi Berlin 0097,DE,Alemania,Berlin,Metro,Sushi,0,Referral,2025-08-10,2025-08-01,2025-08
+R-0098,Kebab Odense 0098,DK,Dinamarca,Odense,Metro,Unknown,0,Direct sales,2026-01-15,2026-01-01,2026-01
+R-0099,Nordic Esbjerg 0099,DK,Dinamarca,Esbjerg,Metro,Nordic,0,Direct sales,2025-08-19,2025-08-01,2025-08
+R-0100,Pizza Esbjerg 0100,DK,Dinamarca,Esbjerg,Mid,Pizza,0,Direct sales,2025-07-29,2025-07-01,2025-07
+R-0101,Kebab Aalborg 0101,DK,Dinamarca,Aalborg,Small,Kebab,1,Direct sales,2025-06-01,2025-06-01,2025-06
+R-0102,Thai Trondheim 0102,NO,Noruega,Trondheim,Small,Thai,0,Referral,2025-10-20,2025-10-01,2025-10
+R-0103,Indian Hamburg 0103,DE,Alemania,Hamburg,Metro,Indian,0,Inbound,2025-07-29,2025-07-01,2025-07
+R-0104,Chinese Aarhus 0104,DK,Dinamarca,Aarhus,Small,Unknown,0,Partner,2025-02-26,2025-02-01,2025-02
+R-0105,Chinese Bristol 0105,UK,Reino Unido,Bristol,Mid,Chinese,0,Inbound,2025-04-23,2025-04-01,2025-04
+R-0106,Indian Leeds 0106,UK,Reino Unido,Leeds,Small,Unknown,0,Partner,2026-07-06,2026-07-01,2026-07
+R-0107,Chinese Aalborg 0107,DK,Dinamarca,Aalborg,Metro,Chinese,0,Referral,2025-09-30,2025-09-01,2025-09
+R-0108,Burger Stavanger 0108,NO,Noruega,Stavanger,Small,Burger,1,Referral,2026-05-01,2026-05-01,2026-05
+R-0109,Thai Gothenburg 0109,SE,Suecia,Gothenburg,Mid,Thai,0,Direct sales,2025-12-23,2025-12-01,2025-12
+R-0110,Pizza Uppsala 0110,SE,Suecia,Uppsala,Metro,Pizza,1,Direct sales,2025-04-10,2025-04-01,2025-04
+R-0111,Burger Bristol 0111,UK,Reino Unido,Bristol,Metro,Burger,0,Direct sales,2025-05-23,2025-05-01,2025-05
+R-0112,Thai Aalborg 0112,DK,Dinamarca,Aalborg,Small,Thai,0,Partner,2026-02-07,2026-02-01,2026-02
+R-0113,Pizza London 0113,UK,Reino Unido,London,Metro,Pizza,0,Inbound,2026-05-13,2026-05-01,2026-05
+R-0114,Burger Odense 0114,DK,Dinamarca,Odense,Small,Burger,0,Direct sales,2025-12-16,2025-12-01,2025-12
+R-0115,Nordic Bristol 0115,UK,Reino Unido,Bristol,Metro,Nordic,0,Referral,2025-09-05,2025-09-01,2025-09
+R-0116,Sushi Aarhus 0116,DK,Dinamarca,Aarhus,Mid,Sushi,0,Referral,2026-08-08,2026-08-01,2026-08
+R-0117,Indian Uppsala 0117,SE,Suecia,Uppsala,Metro,Indian,0,Partner,2026-01-29,2026-01-01,2026-01
+R-0118,Indian London 0118,UK,Reino Unido,London,Mid,Indian,1,Direct sales,2025-09-07,2025-09-01,2025-09
+R-0119,Pizza Leeds 0119,UK,Reino Unido,Leeds,Small,Pizza,0,Inbound,2025-01-14,2025-01-01,2025-01
+R-0120,Burger Esbjerg 0120,DK,Dinamarca,Esbjerg,Metro,Burger,1,Inbound,2025-09-15,2025-09-01,2025-09
+R-0121,Pizza Leeds 0121,UK,Reino Unido,Leeds,Metro,Pizza,0,Paid search,2025-11-08,2025-11-01,2025-11
+R-0122,Vegetarian Stockholm 0122,SE,Suecia,Stockholm,Mid,Vegetarian,1,Inbound,2026-06-28,2026-06-01,2026-06
+R-0123,Vegetarian Birmingham 0123,UK,Reino Unido,Birmingham,Mid,Vegetarian,0,Paid search,2025-05-10,2025-05-01,2025-05
+R-0124,Thai Stockholm 0124,SE,Suecia,Stockholm,Small,Thai,1,Direct sales,2025-03-08,2025-03-01,2025-03
+R-0125,Thai Bristol 0125,UK,Reino Unido,Bristol,Metro,Thai,0,Partner,2025-12-30,2025-12-01,2025-12
+R-0126,Burger Aalborg 0126,DK,Dinamarca,Aalborg,Mid,Burger,1,Inbound,2025-01-20,2025-01-01,2025-01
+R-0127,Indian Leeds 0127,UK,Reino Unido,Leeds,Small,Indian,1,Referral,2026-02-03,2026-02-01,2026-02
+R-0128,Pizza Copenhagen 0128,DK,Dinamarca,Copenhagen,Mid,Pizza,0,Inbound,2025-09-30,2025-09-01,2025-09
+R-0129,Kebab Uppsala 0129,SE,Suecia,Uppsala,Small,Kebab,0,Inbound,2025-08-09,2025-08-01,2025-08
+R-0130,Sushi Odense 0130,DK,Dinamarca,Odense,Metro,Sushi,0,Referral,2026-04-21,2026-04-01,2026-04
+R-0131,Pizza Aalborg 0131,DK,Dinamarca,Aalborg,Small,Pizza,0,Paid search,2026-02-21,2026-02-01,2026-02
+R-0132,Pizza Malmo 0132,SE,Suecia,Malmo,Metro,Pizza,0,Inbound,2025-08-09,2025-08-01,2025-08
+R-0133,Kebab Gothenburg 0133,SE,Suecia,Gothenburg,Mid,Unknown,0,Paid search,2026-05-29,2026-05-01,2026-05
+R-0134,Thai Berlin 0134,DE,Alemania,Berlin,Metro,Thai,0,Direct sales,2026-05-03,2026-05-01,2026-05
+R-0135,Chinese Oslo 0135,NO,Noruega,Oslo,Metro,Chinese,0,Inbound,2025-12-09,2025-12-01,2025-12
+R-0136,Chinese Munich 0136,DE,Alemania,Munich,Metro,Chinese,0,Direct sales,2025-05-30,2025-05-01,2025-05
+R-0137,Sushi Odense 0137,DK,Dinamarca,Odense,Mid,Sushi,1,Direct sales,2026-08-16,2026-08-01,2026-08
+R-0138,Nordic Bergen 0138,NO,Noruega,Bergen,Metro,Nordic,1,Inbound,2026-07-15,2026-07-01,2026-07
+R-0139,Sushi Copenhagen 0139,DK,Dinamarca,Copenhagen,Mid,Sushi,1,Direct sales,2026-08-21,2026-08-01,2026-08
+R-0140,Sushi Copenhagen 0140,DK,Dinamarca,Copenhagen,Mid,Sushi,0,Inbound,2025-09-06,2025-09-01,2025-09
+R-0141,Burger Munich 0141,DE,Alemania,Munich,Metro,Burger,0,Referral,2025-04-30,2025-04-01,2025-04
+R-0142,Chinese Leeds 0142,UK,Reino Unido,Leeds,Mid,Chinese,0,Direct sales,2025-06-07,2025-06-01,2025-06
+R-0143,Sushi Manchester 0143,UK,Reino Unido,Manchester,Metro,Sushi,0,Paid search,2025-02-09,2025-02-01,2025-02
+R-0144,Vegetarian Leeds 0144,UK,Reino Unido,Leeds,Metro,Vegetarian,0,Direct sales,2025-06-27,2025-06-01,2025-06
+R-0145,Pizza Aarhus 0145,DK,Dinamarca,Aarhus,Metro,Pizza,0,Referral,2025-12-31,2025-12-01,2025-12
+R-0146,Thai Aalborg 0146,DK,Dinamarca,Aalborg,Metro,Thai,0,Direct sales,2025-03-03,2025-03-01,2025-03
+R-0147,Chinese Gothenburg 0147,SE,Suecia,Gothenburg,Metro,Chinese,0,Direct sales,2026-07-05,2026-07-01,2026-07
+R-0148,Chinese Copenhagen 0148,DK,Dinamarca,Copenhagen,Mid,Chinese,1,Direct sales,2026-04-05,2026-04-01,2026-04
+R-0149,Burger Manchester 0149,UK,Reino Unido,Manchester,Metro,Unknown,0,Direct sales,2026-08-24,2026-08-01,2026-08
+R-0150,Sushi Leeds 0150,UK,Reino Unido,Leeds,Small,Sushi,0,Inbound,2026-08-10,2026-08-01,2026-08
+R-0151,Nordic Frankfurt 0151,DE,Alemania,Frankfurt,Mid,Nordic,1,Referral,2026-04-03,2026-04-01,2026-04
+R-0152,Vegetarian Leeds 0152,UK,Reino Unido,Leeds,Metro,Vegetarian,0,Direct sales,2026-01-24,2026-01-01,2026-01
+R-0153,Kebab Bristol 0153,UK,Reino Unido,Bristol,Metro,Kebab,0,Direct sales,2026-01-17,2026-01-01,2026-01
+R-0154,Thai Bristol 0154,UK,Reino Unido,Bristol,Mid,Thai,0,Inbound,2025-02-25,2025-02-01,2025-02
+R-0155,Pizza Frankfurt 0155,DE,Alemania,Frankfurt,Mid,Pizza,0,Paid search,2025-10-25,2025-10-01,2025-10
+R-0156,Sushi Gothenburg 0156,SE,Suecia,Gothenburg,Metro,Sushi,0,Inbound,2026-08-26,2026-08-01,2026-08
+R-0157,Pizza Bristol 0157,UK,Reino Unido,Bristol,Mid,Pizza,0,Paid search,2026-03-07,2026-03-01,2026-03
+R-0158,Indian Uppsala 0158,SE,Suecia,Uppsala,Metro,Indian,1,Direct sales,2025-12-19,2025-12-01,2025-12
+R-0159,Thai Manchester 0159,UK,Reino Unido,Manchester,Small,Thai,0,Inbound,2026-04-15,2026-04-01,2026-04
+R-0160,Thai Aalborg 0160,DK,Dinamarca,Aalborg,Small,Thai,1,Inbound,2026-01-04,2026-01-01,2026-01
+R-0161,Sushi Aalborg 0161,DK,Dinamarca,Aalborg,Metro,Sushi,0,Partner,2025-10-14,2025-10-01,2025-10
+R-0162,Burger Esbjerg 0162,DK,Dinamarca,Esbjerg,Mid,Burger,1,Partner,2025-05-21,2025-05-01,2025-05
+R-0163,Chinese Aarhus 0163,DK,Dinamarca,Aarhus,Small,Chinese,0,Partner,2026-08-27,2026-08-01,2026-08
+R-0164,Kebab Trondheim 0164,NO,Noruega,Trondheim,Metro,Kebab,0,Referral,2025-06-19,2025-06-01,2025-06
+R-0165,Vegetarian Berlin 0165,DE,Alemania,Berlin,Metro,Vegetarian,0,Inbound,2026-05-27,2026-05-01,2026-05
+R-0166,Chinese Birmingham 0166,UK,Reino Unido,Birmingham,Metro,Chinese,0,Inbound,2025-12-25,2025-12-01,2025-12
+R-0167,Pizza Munich 0167,DE,Alemania,Munich,Mid,Unknown,0,Direct sales,2026-04-26,2026-04-01,2026-04
+R-0168,Burger Munich 0168,DE,Alemania,Munich,Small,Burger,0,Referral,2026-01-01,2026-01-01,2026-01
+R-0169,Chinese Esbjerg 0169,DK,Dinamarca,Esbjerg,Metro,Chinese,0,Inbound,2026-08-05,2026-08-01,2026-08
+R-0170,Pizza Odense 0170,DK,Dinamarca,Odense,Metro,Pizza,0,Direct sales,2025-09-27,2025-09-01,2025-09
+R-0171,Pizza Odense 0171,DK,Dinamarca,Odense,Metro,Pizza,0,Referral,2025-02-22,2025-02-01,2025-02
+R-0172,Pizza Leeds 0172,UK,Reino Unido,Leeds,Metro,Pizza,1,Referral,2026-08-29,2026-08-01,2026-08
+R-0173,Sushi Birmingham 0173,UK,Reino Unido,Birmingham,Metro,Sushi,1,Direct sales,2025-04-16,2025-04-01,2025-04
+R-0174,Chinese Hamburg 0174,DE,Alemania,Hamburg,Mid,Chinese,0,Paid search,2025-09-30,2025-09-01,2025-09
+R-0175,Pizza Esbjerg 0175,DK,Dinamarca,Esbjerg,Small,Pizza,0,Direct sales,2025-02-05,2025-02-01,2025-02
+R-0176,Burger Uppsala 0176,SE,Suecia,Uppsala,Metro,Burger,0,Inbound,2026-04-23,2026-04-01,2026-04
+R-0177,Burger Hamburg 0177,DE,Alemania,Hamburg,Metro,Burger,0,Referral,2026-02-13,2026-02-01,2026-02
+R-0178,Indian Frankfurt 0178,DE,Alemania,Frankfurt,Mid,Indian,0,Inbound,2026-01-14,2026-01-01,2026-01
+R-0179,Pizza Odense 0179,DK,Dinamarca,Odense,Metro,Pizza,0,Direct sales,2025-10-08,2025-10-01,2025-10
+R-0180,Pizza Aalborg 0180,DK,Dinamarca,Aalborg,Small,Pizza,0,Paid search,2026-02-04,2026-02-01,2026-02
+R-0181,Vegetarian Aalborg 0181,DK,Dinamarca,Aalborg,Metro,Vegetarian,0,Inbound,2026-02-19,2026-02-01,2026-02
+R-0182,Pizza Malmo 0182,SE,Suecia,Malmo,Mid,Pizza,1,Inbound,2026-02-01,2026-02-01,2026-02
+R-0183,Sushi Aalborg 0183,DK,Dinamarca,Aalborg,Metro,Sushi,0,Direct sales,2025-07-03,2025-07-01,2025-07
+R-0184,Kebab Odense 0184,DK,Dinamarca,Odense,Metro,Kebab,1,Direct sales,2025-01-29,2025-01-01,2025-01
+R-0185,Pizza London 0185,UK,Reino Unido,London,Small,Pizza,0,Referral,2026-06-20,2026-06-01,2026-06
+R-0186,Pizza Esbjerg 0186,DK,Dinamarca,Esbjerg,Mid,Pizza,0,Partner,2026-06-17,2026-06-01,2026-06
+R-0187,Pizza Aarhus 0187,DK,Dinamarca,Aarhus,Mid,Pizza,0,Direct sales,2025-04-23,2025-04-01,2025-04
+R-0188,Burger Odense 0188,DK,Dinamarca,Odense,Mid,Burger,0,Direct sales,2026-02-07,2026-02-01,2026-02
+R-0189,Kebab Stockholm 0189,SE,Suecia,Stockholm,Metro,Kebab,0,Referral,2026-03-22,2026-03-01,2026-03
+R-0190,Kebab London 0190,UK,Reino Unido,London,Mid,Kebab,0,Partner,2025-05-25,2025-05-01,2025-05
+R-0191,Pizza Berlin 0191,DE,Alemania,Berlin,Small,Pizza,0,Direct sales,2026-04-14,2026-04-01,2026-04
+R-0192,Pizza Munich 0192,DE,Alemania,Munich,Mid,Unknown,0,Inbound,2026-07-10,2026-07-01,2026-07
+R-0193,Thai Hamburg 0193,DE,Alemania,Hamburg,Metro,Thai,0,Direct sales,2025-06-20,2025-06-01,2025-06
+R-0194,Sushi Aalborg 0194,DK,Dinamarca,Aalborg,Metro,Sushi,0,Direct sales,2025-06-05,2025-06-01,2025-06
+R-0195,Pizza Munich 0195,DE,Alemania,Munich,Mid,Pizza,0,Direct sales,2025-08-27,2025-08-01,2025-08
+R-0196,Pizza Manchester 0196,UK,Reino Unido,Manchester,Metro,Pizza,0,Direct sales,2025-03-11,2025-03-01,2025-03
+R-0197,Kebab Odense 0197,DK,Dinamarca,Odense,Small,Kebab,0,Direct sales,2026-04-03,2026-04-01,2026-04
+R-0198,Pizza Copenhagen 0198,DK,Dinamarca,Copenhagen,Mid,Pizza,0,Direct sales,2025-05-02,2025-05-01,2025-05
+R-0199,Nordic Malmo 0199,SE,Suecia,Malmo,Small,Nordic,0,Direct sales,2026-07-24,2026-07-01,2026-07
+R-0200,Pizza Hamburg 0200,DE,Alemania,Hamburg,Metro,Pizza,0,Partner,2025-08-11,2025-08-01,2025-08
+R-0201,Pizza Copenhagen 0201,DK,Dinamarca,Copenhagen,Metro,Pizza,1,Direct sales,2026-08-17,2026-08-01,2026-08
+R-0202,Burger Cologne 0202,DE,Alemania,Cologne,Small,Burger,0,Referral,2025-08-28,2025-08-01,2025-08
+R-0203,Sushi Bristol 0203,UK,Reino Unido,Bristol,Metro,Sushi,0,Partner,2026-08-11,2026-08-01,2026-08
+R-0204,Pizza Aalborg 0204,DK,Dinamarca,Aalborg,Metro,Pizza,1,Inbound,2025-06-20,2025-06-01,2025-06
+R-0205,Kebab Gothenburg 0205,SE,Suecia,Gothenburg,Mid,Kebab,1,Paid search,2026-08-24,2026-08-01,2026-08
+R-0206,Kebab Malmo 0206,SE,Suecia,Malmo,Metro,Kebab,1,Direct sales,2026-04-17,2026-04-01,2026-04
+R-0207,Sushi Stavanger 0207,NO,Noruega,Stavanger,Small,Sushi,0,Inbound,2025-01-16,2025-01-01,2025-01
+R-0208,Thai Aalborg 0208,DK,Dinamarca,Aalborg,Mid,Unknown,0,Direct sales,2026-05-16,2026-05-01,2026-05
+R-0209,Burger Frankfurt 0209,DE,Alemania,Frankfurt,Mid,Burger,0,Partner,2025-09-10,2025-09-01,2025-09
+R-0210,Nordic Leeds 0210,UK,Reino Unido,Leeds,Mid,Nordic,0,Inbound,2025-08-01,2025-08-01,2025-08
+R-0211,Pizza Hamburg 0211,DE,Alemania,Hamburg,Mid,Pizza,0,Partner,2025-03-31,2025-03-01,2025-03
+R-0212,Pizza Esbjerg 0212,DK,Dinamarca,Esbjerg,Mid,Pizza,1,Direct sales,2026-01-16,2026-01-01,2026-01
+R-0213,Kebab Aarhus 0213,DK,Dinamarca,Aarhus,Metro,Kebab,0,Inbound,2026-07-05,2026-07-01,2026-07
+R-0214,Pizza Aalborg 0214,DK,Dinamarca,Aalborg,Metro,Pizza,0,Direct sales,2025-09-06,2025-09-01,2025-09
+R-0215,Pizza Stockholm 0215,SE,Suecia,Stockholm,Mid,Pizza,0,Referral,2026-05-28,2026-05-01,2026-05
+R-0216,Kebab Birmingham 0216,UK,Reino Unido,Birmingham,Metro,Kebab,0,Inbound,2026-07-13,2026-07-01,2026-07
+R-0217,Kebab Aalborg 0217,DK,Dinamarca,Aalborg,Metro,Kebab,0,Referral,2026-02-14,2026-02-01,2026-02
+R-0218,Kebab Berlin 0218,DE,Alemania,Berlin,Small,Kebab,0,Paid search,2025-08-18,2025-08-01,2025-08
+R-0219,Pizza Leeds 0219,UK,Reino Unido,Leeds,Metro,Pizza,0,Referral,2025-11-27,2025-11-01,2025-11
+R-0220,Pizza Aalborg 0220,DK,Dinamarca,Aalborg,Metro,Pizza,0,Direct sales,2026-01-19,2026-01-01,2026-01
+R-0221,Sushi Copenhagen 0221,DK,Dinamarca,Copenhagen,Mid,Sushi,0,Referral,2026-07-17,2026-07-01,2026-07
+R-0222,Indian Oslo 0222,NO,Noruega,Oslo,Metro,Indian,0,Referral,2025-11-10,2025-11-01,2025-11
+R-0223,Burger Stavanger 0223,NO,Noruega,Stavanger,Mid,Burger,0,Referral,2025-08-25,2025-08-01,2025-08
+R-0224,Nordic Bristol 0224,UK,Reino Unido,Bristol,Metro,Nordic,1,Partner,2025-07-07,2025-07-01,2025-07
+R-0225,Kebab Aarhus 0225,DK,Dinamarca,Aarhus,Metro,Kebab,0,Paid search,2026-06-29,2026-06-01,2026-06
+R-0226,Chinese Manchester 0226,UK,Reino Unido,Manchester,Metro,Chinese,0,Referral,2026-01-02,2026-01-01,2026-01
+R-0227,Sushi Esbjerg 0227,DK,Dinamarca,Esbjerg,Metro,Sushi,0,Direct sales,2025-03-07,2025-03-01,2025-03
+R-0228,Kebab Esbjerg 0228,DK,Dinamarca,Esbjerg,Metro,Kebab,0,Paid search,2025-08-12,2025-08-01,2025-08
+R-0229,Pizza London 0229,UK,Reino Unido,London,Metro,Pizza,0,Partner,2026-02-06,2026-02-01,2026-02
+R-0230,Sushi Leeds 0230,UK,Reino Unido,Leeds,Mid,Sushi,0,Partner,2025-02-25,2025-02-01,2025-02
+R-0231,Indian Bergen 0231,NO,Noruega,Bergen,Small,Indian,0,Inbound,2026-03-23,2026-03-01,2026-03
+R-0232,Kebab Bergen 0232,NO,Noruega,Bergen,Metro,Kebab,0,Inbound,2025-07-18,2025-07-01,2025-07
+R-0233,Pizza Stavanger 0233,NO,Noruega,Stavanger,Metro,Pizza,0,Inbound,2025-11-10,2025-11-01,2025-11
+R-0234,Indian Esbjerg 0234,DK,Dinamarca,Esbjerg,Mid,Indian,0,Paid search,2026-03-02,2026-03-01,2026-03
+R-0235,Chinese Malmo 0235,SE,Suecia,Malmo,Small,Chinese,0,Direct sales,2026-01-03,2026-01-01,2026-01
+R-0236,Indian Birmingham 0236,UK,Reino Unido,Birmingham,Metro,Indian,0,Direct sales,2025-01-21,2025-01-01,2025-01
+R-0237,Pizza Esbjerg 0237,DK,Dinamarca,Esbjerg,Metro,Pizza,0,Referral,2025-11-17,2025-11-01,2025-11
+R-0238,Kebab Esbjerg 0238,DK,Dinamarca,Esbjerg,Mid,Kebab,0,Inbound,2025-11-29,2025-11-01,2025-11
+R-0239,Kebab London 0239,UK,Reino Unido,London,Mid,Kebab,0,Direct sales,2025-07-30,2025-07-01,2025-07
+R-0240,Pizza Copenhagen 0240,DK,Dinamarca,Copenhagen,Mid,Pizza,0,Direct sales,2026-08-15,2026-08-01,2026-08
+R-0241,Vegetarian Aarhus 0241,DK,Dinamarca,Aarhus,Metro,Unknown,0,Inbound,2026-04-01,2026-04-01,2026-04
+R-0242,Kebab Munich 0242,DE,Alemania,Munich,Small,Kebab,0,Direct sales,2025-09-16,2025-09-01,2025-09
+R-0243,Indian Trondheim 0243,NO,Noruega,Trondheim,Mid,Indian,0,Direct sales,2026-06-17,2026-06-01,2026-06
+R-0244,Kebab Stockholm 0244,SE,Suecia,Stockholm,Mid,Kebab,0,Partner,2025-04-07,2025-04-01,2025-04
+R-0245,Pizza Aarhus 0245,DK,Dinamarca,Aarhus,Metro,Pizza,0,Direct sales,2025-05-03,2025-05-01,2025-05
+R-0246,Nordic Manchester 0246,UK,Reino Unido,Manchester,Metro,Nordic,0,Direct sales,2025-09-30,2025-09-01,2025-09
+R-0247,Pizza Leeds 0247,UK,Reino Unido,Leeds,Metro,Pizza,1,Direct sales,2025-04-06,2025-04-01,2025-04
+R-0248,Vegetarian Gothenburg 0248,SE,Suecia,Gothenburg,Metro,Vegetarian,1,Direct sales,2025-09-30,2025-09-01,2025-09
+R-0249,Kebab Birmingham 0249,UK,Reino Unido,Birmingham,Metro,Kebab,1,Paid search,2026-02-06,2026-02-01,2026-02
+R-0250,Sushi Esbjerg 0250,DK,Dinamarca,Esbjerg,Small,Sushi,0,Inbound,2026-08-06,2026-08-01,2026-08
+R-0251,Burger Esbjerg 0251,DK,Dinamarca,Esbjerg,Small,Burger,0,Inbound,2026-05-27,2026-05-01,2026-05
+R-0252,Vegetarian Oslo 0252,NO,Noruega,Oslo,Metro,Vegetarian,0,Partner,2026-08-10,2026-08-01,2026-08
+R-0253,Pizza Leeds 0253,UK,Reino Unido,Leeds,Metro,Pizza,0,Inbound,2026-03-14,2026-03-01,2026-03
+R-0254,Pizza London 0254,UK,Reino Unido,London,Metro,Pizza,0,Direct sales,2026-06-03,2026-06-01,2026-06
+R-0255,Pizza Aarhus 0255,DK,Dinamarca,Aarhus,Mid,Pizza,0,Referral,2026-07-29,2026-07-01,2026-07
+R-0256,Indian Leeds 0256,UK,Reino Unido,Leeds,Small,Indian,0,Inbound,2026-08-30,2026-08-01,2026-08
+R-0257,Chinese Copenhagen 0257,DK,Dinamarca,Copenhagen,Mid,Chinese,0,Inbound,2025-10-16,2025-10-01,2025-10
+R-0258,Pizza Leeds 0258,UK,Reino Unido,Leeds,Small,Pizza,1,Direct sales,2025-11-18,2025-11-01,2025-11
+R-0259,Thai Bristol 0259,UK,Reino Unido,Bristol,Small,Thai,0,Paid search,2026-05-30,2026-05-01,2026-05
+R-0260,Pizza Cologne 0260,DE,Alemania,Cologne,Metro,Pizza,0,Referral,2025-03-04,2025-03-01,2025-03
+R-0261,Kebab Frankfurt 0261,DE,Alemania,Frankfurt,Mid,Kebab,0,Direct sales,2025-06-04,2025-06-01,2025-06
+R-0262,Thai Copenhagen 0262,DK,Dinamarca,Copenhagen,Metro,Thai,1,Paid search,2025-09-30,2025-09-01,2025-09
+R-0263,Pizza Cologne 0263,DE,Alemania,Cologne,Metro,Pizza,0,Referral,2026-01-03,2026-01-01,2026-01
+R-0264,Pizza Hamburg 0264,DE,Alemania,Hamburg,Metro,Pizza,0,Inbound,2026-06-11,2026-06-01,2026-06
+R-0265,Indian Manchester 0265,UK,Reino Unido,Manchester,Mid,Indian,0,Paid search,2026-08-14,2026-08-01,2026-08
+R-0266,Pizza Copenhagen 0266,DK,Dinamarca,Copenhagen,Small,Pizza,1,Partner,2026-07-20,2026-07-01,2026-07
+R-0267,Thai Bristol 0267,UK,Reino Unido,Bristol,Mid,Thai,0,Direct sales,2026-08-17,2026-08-01,2026-08
+R-0268,Kebab Hamburg 0268,DE,Alemania,Hamburg,Small,Kebab,0,Inbound,2026-06-01,2026-06-01,2026-06
+R-0269,Nordic Uppsala 0269,SE,Suecia,Uppsala,Metro,Nordic,0,Direct sales,2026-06-04,2026-06-01,2026-06
+R-0270,Chinese Trondheim 0270,NO,Noruega,Trondheim,Metro,Unknown,1,Partner,2026-03-17,2026-03-01,2026-03
+R-0271,Pizza Uppsala 0271,SE,Suecia,Uppsala,Mid,Pizza,0,Direct sales,2025-05-24,2025-05-01,2025-05
+R-0272,Sushi Esbjerg 0272,DK,Dinamarca,Esbjerg,Metro,Sushi,0,Direct sales,2026-06-16,2026-06-01,2026-06
+R-0273,Indian Leeds 0273,UK,Reino Unido,Leeds,Metro,Indian,0,Direct sales,2026-05-06,2026-05-01,2026-05
+R-0274,Pizza Aalborg 0274,DK,Dinamarca,Aalborg,Metro,Pizza,0,Inbound,2026-01-24,2026-01-01,2026-01
+R-0275,Pizza Copenhagen 0275,DK,Dinamarca,Copenhagen,Metro,Pizza,0,Partner,2026-06-08,2026-06-01,2026-06
+R-0276,Burger Trondheim 0276,NO,Noruega,Trondheim,Metro,Burger,0,Paid search,2026-01-04,2026-01-01,2026-01
+R-0277,Burger Trondheim 0277,NO,Noruega,Trondheim,Metro,Burger,0,Partner,2025-05-14,2025-05-01,2025-05
+R-0278,Sushi Manchester 0278,UK,Reino Unido,Manchester,Small,Sushi,0,Direct sales,2025-12-17,2025-12-01,2025-12
+R-0279,Pizza Oslo 0279,NO,Noruega,Oslo,Metro,Pizza,0,Referral,2025-12-31,2025-12-01,2025-12
+R-0280,Sushi Aarhus 0280,DK,Dinamarca,Aarhus,Mid,Sushi,0,Direct sales,2026-07-24,2026-07-01,2026-07
+R-0281,Kebab Bergen 0281,NO,Noruega,Bergen,Mid,Kebab,0,Direct sales,2025-07-23,2025-07-01,2025-07
+R-0282,Pizza Esbjerg 0282,DK,Dinamarca,Esbjerg,Small,Pizza,0,Direct sales,2025-09-02,2025-09-01,2025-09
+R-0283,Thai Frankfurt 0283,DE,Alemania,Frankfurt,Metro,Thai,0,Referral,2026-08-24,2026-08-01,2026-08
+R-0284,Burger Stavanger 0284,NO,Noruega,Stavanger,Small,Burger,0,Direct sales,2026-06-05,2026-06-01,2026-06
+R-0285,Chinese Oslo 0285,NO,Noruega,Oslo,Metro,Chinese,0,Paid search,2026-04-20,2026-04-01,2026-04
+R-0286,Sushi Manchester 0286,UK,Reino Unido,Manchester,Small,Sushi,0,Direct sales,2025-04-21,2025-04-01,2025-04
+R-0287,Nordic Manchester 0287,UK,Reino Unido,Manchester,Mid,Nordic,0,Direct sales,2025-04-07,2025-04-01,2025-04
+R-0288,Sushi Berlin 0288,DE,Alemania,Berlin,Metro,Sushi,1,Paid search,2025-12-06,2025-12-01,2025-12
+R-0289,Chinese Aalborg 0289,DK,Dinamarca,Aalborg,Small,Chinese,1,Paid search,2026-02-12,2026-02-01,2026-02
+R-0290,Sushi Esbjerg 0290,DK,Dinamarca,Esbjerg,Mid,Unknown,1,Paid search,2025-04-02,2025-04-01,2025-04
+R-0291,Sushi Berlin 0291,DE,Alemania,Berlin,Mid,Sushi,0,Inbound,2025-10-15,2025-10-01,2025-10
+R-0292,Burger Esbjerg 0292,DK,Dinamarca,Esbjerg,Metro,Burger,0,Paid search,2026-05-03,2026-05-01,2026-05
+R-0293,Kebab Leeds 0293,UK,Reino Unido,Leeds,Metro,Kebab,0,Inbound,2026-06-09,2026-06-01,2026-06
+R-0294,Sushi Birmingham 0294,UK,Reino Unido,Birmingham,Mid,Sushi,0,Partner,2025-03-07,2025-03-01,2025-03
+R-0295,Vegetarian Birmingham 0295,UK,Reino Unido,Birmingham,Metro,Vegetarian,0,Inbound,2025-12-13,2025-12-01,2025-12
+R-0296,Burger Aalborg 0296,DK,Dinamarca,Aalborg,Metro,Burger,1,Partner,2025-11-01,2025-11-01,2025-11
+R-0297,Thai Hamburg 0297,DE,Alemania,Hamburg,Mid,Thai,1,Direct sales,2025-08-05,2025-08-01,2025-08
+R-0298,Thai Birmingham 0298,UK,Reino Unido,Birmingham,Metro,Thai,0,Partner,2025-11-25,2025-11-01,2025-11
+R-0299,Sushi Manchester 0299,UK,Reino Unido,Manchester,Mid,Sushi,0,Inbound,2025-11-22,2025-11-01,2025-11
+R-0300,Pizza Stavanger 0300,NO,Noruega,Stavanger,Metro,Pizza,1,Inbound,2026-07-03,2026-07-01,2026-07
+R-0301,Pizza Berlin 0301,DE,Alemania,Berlin,Metro,Pizza,0,Direct sales,2025-12-25,2025-12-01,2025-12
+R-0302,Thai Aarhus 0302,DK,Dinamarca,Aarhus,Metro,Thai,0,Inbound,2026-04-14,2026-04-01,2026-04
+R-0303,Chinese Aalborg 0303,DK,Dinamarca,Aalborg,Metro,Chinese,0,Inbound,2025-10-27,2025-10-01,2025-10
+R-0304,Pizza Leeds 0304,UK,Reino Unido,Leeds,Small,Pizza,0,Partner,2026-02-09,2026-02-01,2026-02
+R-0305,Nordic Berlin 0305,DE,Alemania,Berlin,Metro,Nordic,0,Inbound,2025-05-21,2025-05-01,2025-05
+R-0306,Thai Hamburg 0306,DE,Alemania,Hamburg,Metro,Thai,0,Referral,2026-04-08,2026-04-01,2026-04
+R-0307,Sushi Leeds 0307,UK,Reino Unido,Leeds,Mid,Sushi,0,Referral,2026-08-22,2026-08-01,2026-08
+R-0308,Burger Aarhus 0308,DK,Dinamarca,Aarhus,Metro,Burger,1,Direct sales,2026-02-01,2026-02-01,2026-02
+R-0309,Sushi Stavanger 0309,NO,Noruega,Stavanger,Metro,Sushi,0,Paid search,2025-09-07,2025-09-01,2025-09
+R-0310,Burger Esbjerg 0310,DK,Dinamarca,Esbjerg,Mid,Burger,0,Direct sales,2026-03-15,2026-03-01,2026-03
+R-0311,Pizza Esbjerg 0311,DK,Dinamarca,Esbjerg,Metro,Pizza,0,Paid search,2025-12-23,2025-12-01,2025-12
+R-0312,Pizza Birmingham 0312,UK,Reino Unido,Birmingham,Small,Pizza,1,Paid search,2026-01-01,2026-01-01,2026-01
+R-0313,Sushi Copenhagen 0313,DK,Dinamarca,Copenhagen,Small,Sushi,1,Inbound,2026-08-31,2026-08-01,2026-08
+R-0314,Sushi Aalborg 0314,DK,Dinamarca,Aalborg,Metro,Sushi,0,Direct sales,2026-01-05,2026-01-01,2026-01
+R-0315,Burger Birmingham 0315,UK,Reino Unido,Birmingham,Mid,Burger,1,Paid search,2026-02-05,2026-02-01,2026-02
+R-0316,Vegetarian Odense 0316,DK,Dinamarca,Odense,Mid,Vegetarian,0,Partner,2026-03-12,2026-03-01,2026-03
+R-0317,Pizza Leeds 0317,UK,Reino Unido,Leeds,Mid,Pizza,0,Partner,2026-08-26,2026-08-01,2026-08
+R-0318,Burger Birmingham 0318,UK,Reino Unido,Birmingham,Metro,Burger,0,Direct sales,2026-08-02,2026-08-01,2026-08
+R-0319,Nordic Birmingham 0319,UK,Reino Unido,Birmingham,Metro,Nordic,0,Direct sales,2026-07-10,2026-07-01,2026-07
+R-0320,Sushi Manchester 0320,UK,Reino Unido,Manchester,Small,Sushi,0,Referral,2025-04-14,2025-04-01,2025-04
+R-0321,Pizza Esbjerg 0321,DK,Dinamarca,Esbjerg,Metro,Pizza,0,Direct sales,2026-01-02,2026-01-01,2026-01
+R-0322,Pizza Manchester 0322,UK,Reino Unido,Manchester,Mid,Unknown,0,Referral,2026-08-22,2026-08-01,2026-08
+R-0323,Pizza Aarhus 0323,DK,Dinamarca,Aarhus,Metro,Pizza,0,Inbound,2025-07-29,2025-07-01,2025-07
+R-0324,Burger Odense 0324,DK,Dinamarca,Odense,Metro,Burger,1,Referral,2025-01-04,2025-01-01,2025-01
+R-0325,Pizza Leeds 0325,UK,Reino Unido,Leeds,Metro,Pizza,0,Inbound,2025-07-18,2025-07-01,2025-07
+R-0326,Kebab Munich 0326,DE,Alemania,Munich,Metro,Kebab,0,Direct sales,2025-06-27,2025-06-01,2025-06
+R-0327,Chinese Malmo 0327,SE,Suecia,Malmo,Small,Chinese,0,Direct sales,2026-05-28,2026-05-01,2026-05
+R-0328,Sushi Cologne 0328,DE,Alemania,Cologne,Mid,Sushi,0,Referral,2025-11-17,2025-11-01,2025-11
+R-0329,Pizza Munich 0329,DE,Alemania,Munich,Mid,Pizza,0,Inbound,2025-08-11,2025-08-01,2025-08
+R-0330,Pizza Aalborg 0330,DK,Dinamarca,Aalborg,Mid,Pizza,0,Partner,2025-02-10,2025-02-01,2025-02
+R-0331,Thai Aarhus 0331,DK,Dinamarca,Aarhus,Mid,Thai,0,Paid search,2025-08-25,2025-08-01,2025-08
+R-0332,Thai Bergen 0332,NO,Noruega,Bergen,Mid,Thai,0,Inbound,2026-07-24,2026-07-01,2026-07
+R-0333,Chinese Manchester 0333,UK,Reino Unido,Manchester,Metro,Chinese,1,Partner,2026-08-25,2026-08-01,2026-08
+R-0334,Sushi Frankfurt 0334,DE,Alemania,Frankfurt,Mid,Sushi,1,Partner,2025-06-06,2025-06-01,2025-06
+R-0335,Thai Berlin 0335,DE,Alemania,Berlin,Metro,Thai,0,Inbound,2025-05-02,2025-05-01,2025-05
+R-0336,Pizza Hamburg 0336,DE,Alemania,Hamburg,Small,Pizza,1,Referral,2025-09-15,2025-09-01,2025-09
+R-0337,Thai Copenhagen 0337,DK,Dinamarca,Copenhagen,Metro,Thai,0,Paid search,2025-03-14,2025-03-01,2025-03
+R-0338,Kebab Bergen 0338,NO,Noruega,Bergen,Metro,Kebab,1,Paid search,2026-02-10,2026-02-01,2026-02
+R-0339,Pizza Aalborg 0339,DK,Dinamarca,Aalborg,Small,Pizza,0,Partner,2025-05-23,2025-05-01,2025-05
+R-0340,Pizza Leeds 0340,UK,Reino Unido,Leeds,Metro,Pizza,0,Paid search,2025-10-31,2025-10-01,2025-10
+R-0341,Vegetarian Bergen 0341,NO,Noruega,Bergen,Metro,Vegetarian,1,Direct sales,2025-07-08,2025-07-01,2025-07
+R-0342,Pizza Leeds 0342,UK,Reino Unido,Leeds,Small,Pizza,1,Inbound,2025-06-10,2025-06-01,2025-06
+R-0343,Kebab Odense 0343,DK,Dinamarca,Odense,Metro,Kebab,0,Inbound,2026-05-27,2026-05-01,2026-05
+R-0344,Thai Malmo 0344,SE,Suecia,Malmo,Mid,Thai,0,Partner,2025-02-18,2025-02-01,2025-02
+R-0345,Nordic Aarhus 0345,DK,Dinamarca,Aarhus,Metro,Nordic,0,Direct sales,2025-05-06,2025-05-01,2025-05
+R-0346,Thai Trondheim 0346,NO,Noruega,Trondheim,Metro,Thai,0,Partner,2026-04-23,2026-04-01,2026-04
+R-0347,Nordic Manchester 0347,UK,Reino Unido,Manchester,Metro,Nordic,0,Paid search,2025-12-20,2025-12-01,2025-12
+R-0348,Sushi Odense 0348,DK,Dinamarca,Odense,Mid,Sushi,0,Partner,2025-07-23,2025-07-01,2025-07
+R-0349,Pizza Cologne 0349,DE,Alemania,Cologne,Metro,Pizza,0,Direct sales,2025-05-24,2025-05-01,2025-05
+R-0350,Kebab Berlin 0350,DE,Alemania,Berlin,Metro,Kebab,0,Paid search,2025-03-12,2025-03-01,2025-03
+R-0351,Burger Aalborg 0351,DK,Dinamarca,Aalborg,Metro,Burger,0,Direct sales,2025-04-23,2025-04-01,2025-04
+R-0352,Pizza Leeds 0352,UK,Reino Unido,Leeds,Mid,Pizza,0,Direct sales,2025-10-29,2025-10-01,2025-10
+R-0353,Kebab London 0353,UK,Reino Unido,London,Small,Kebab,0,Referral,2025-08-04,2025-08-01,2025-08
+R-0354,Pizza Bergen 0354,NO,Noruega,Bergen,Mid,Pizza,0,Direct sales,2026-01-27,2026-01-01,2026-01
+R-0355,Indian Aalborg 0355,DK,Dinamarca,Aalborg,Small,Indian,0,Direct sales,2025-09-27,2025-09-01,2025-09
+R-0356,Thai Oslo 0356,NO,Noruega,Oslo,Mid,Thai,0,Direct sales,2026-07-12,2026-07-01,2026-07
+R-0357,Pizza Aarhus 0357,DK,Dinamarca,Aarhus,Mid,Pizza,0,Referral,2025-02-18,2025-02-01,2025-02
+R-0358,Sushi Berlin 0358,DE,Alemania,Berlin,Mid,Sushi,0,Referral,2025-02-25,2025-02-01,2025-02
+R-0359,Indian Frankfurt 0359,DE,Alemania,Frankfurt,Mid,Indian,1,Inbound,2025-04-14,2025-04-01,2025-04
+R-0360,Thai Manchester 0360,UK,Reino Unido,Manchester,Small,Thai,1,Partner,2026-05-23,2026-05-01,2026-05
+R-0361,Thai Hamburg 0361,DE,Alemania,Hamburg,Metro,Thai,0,Inbound,2025-05-27,2025-05-01,2025-05
+R-0362,Burger Stavanger 0362,NO,Noruega,Stavanger,Metro,Burger,0,Inbound,2025-09-16,2025-09-01,2025-09
+R-0363,Kebab Leeds 0363,UK,Reino Unido,Leeds,Metro,Kebab,0,Partner,2025-01-16,2025-01-01,2025-01
+R-0364,Pizza Odense 0364,DK,Dinamarca,Odense,Mid,Pizza,0,Direct sales,2025-05-05,2025-05-01,2025-05
+R-0365,Vegetarian Stavanger 0365,NO,Noruega,Stavanger,Mid,Vegetarian,0,Direct sales,2026-06-03,2026-06-01,2026-06
+R-0366,Thai Manchester 0366,UK,Reino Unido,Manchester,Mid,Thai,0,Inbound,2025-04-27,2025-04-01,2025-04
+R-0367,Indian Leeds 0367,UK,Reino Unido,Leeds,Metro,Indian,0,Paid search,2025-05-01,2025-05-01,2025-05
+R-0368,Thai Odense 0368,DK,Dinamarca,Odense,Small,Thai,0,Direct sales,2026-02-12,2026-02-01,2026-02
+R-0369,Burger Bristol 0369,UK,Reino Unido,Bristol,Mid,Burger,0,Direct sales,2025-03-02,2025-03-01,2025-03
+R-0370,Burger Leeds 0370,UK,Reino Unido,Leeds,Metro,Burger,0,Referral,2026-08-25,2026-08-01,2026-08
+R-0371,Pizza Cologne 0371,DE,Alemania,Cologne,Metro,Pizza,0,Paid search,2025-12-12,2025-12-01,2025-12
+R-0372,Kebab London 0372,UK,Reino Unido,London,Metro,Kebab,1,Referral,2025-12-04,2025-12-01,2025-12
+R-0373,Indian Odense 0373,DK,Dinamarca,Odense,Small,Indian,0,Referral,2026-07-26,2026-07-01,2026-07
+R-0374,Vegetarian Aarhus 0374,DK,Dinamarca,Aarhus,Small,Vegetarian,0,Inbound,2025-08-01,2025-08-01,2025-08
+R-0375,Chinese London 0375,UK,Reino Unido,London,Metro,Chinese,1,Referral,2025-02-16,2025-02-01,2025-02
+R-0376,Sushi Leeds 0376,UK,Reino Unido,Leeds,Metro,Sushi,0,Referral,2025-02-07,2025-02-01,2025-02
+R-0377,Pizza Leeds 0377,UK,Reino Unido,Leeds,Small,Unknown,0,Direct sales,2025-07-03,2025-07-01,2025-07
+R-0378,Kebab Manchester 0378,UK,Reino Unido,Manchester,Metro,Kebab,0,Paid search,2026-06-05,2026-06-01,2026-06
+R-0379,Burger Copenhagen 0379,DK,Dinamarca,Copenhagen,Metro,Burger,0,Partner,2025-01-24,2025-01-01,2025-01
+R-0380,Sushi Manchester 0380,UK,Reino Unido,Manchester,Metro,Sushi,0,Inbound,2026-08-23,2026-08-01,2026-08
+R-0381,Indian Aalborg 0381,DK,Dinamarca,Aalborg,Small,Indian,0,Direct sales,2025-10-29,2025-10-01,2025-10
+R-0382,Thai Manchester 0382,UK,Reino Unido,Manchester,Mid,Thai,0,Inbound,2025-09-27,2025-09-01,2025-09
+R-0383,Kebab London 0383,UK,Reino Unido,London,Small,Kebab,0,Direct sales,2025-06-02,2025-06-01,2025-06
+R-0384,Pizza Odense 0384,DK,Dinamarca,Odense,Mid,Pizza,0,Partner,2025-12-25,2025-12-01,2025-12
+R-0385,Pizza Bristol 0385,UK,Reino Unido,Bristol,Mid,Pizza,0,Direct sales,2025-06-08,2025-06-01,2025-06
+R-0386,Burger Birmingham 0386,UK,Reino Unido,Birmingham,Small,Burger,0,Partner,2025-09-28,2025-09-01,2025-09
+R-0387,Vegetarian Aarhus 0387,DK,Dinamarca,Aarhus,Mid,Vegetarian,0,Inbound,2026-06-29,2026-06-01,2026-06
+R-0388,Thai Aalborg 0388,DK,Dinamarca,Aalborg,Mid,Thai,0,Direct sales,2025-03-02,2025-03-01,2025-03
+R-0389,Pizza London 0389,UK,Reino Unido,London,Mid,Pizza,0,Partner,2025-10-24,2025-10-01,2025-10
+R-0390,Indian Malmo 0390,SE,Suecia,Malmo,Small,Indian,0,Inbound,2025-08-05,2025-08-01,2025-08
+R-0391,Chinese Frankfurt 0391,DE,Alemania,Frankfurt,Small,Chinese,1,Referral,2026-04-05,2026-04-01,2026-04
+R-0392,Kebab Esbjerg 0392,DK,Dinamarca,Esbjerg,Metro,Kebab,0,Inbound,2025-11-26,2025-11-01,2025-11
+R-0393,Burger Oslo 0393,NO,Noruega,Oslo,Metro,Burger,0,Paid search,2026-08-28,2026-08-01,2026-08
+R-0394,Pizza Bristol 0394,UK,Reino Unido,Bristol,Small,Pizza,0,Referral,2025-11-16,2025-11-01,2025-11
+R-0395,Burger Bergen 0395,NO,Noruega,Bergen,Mid,Burger,0,Paid search,2026-03-10,2026-03-01,2026-03
+R-0396,Indian Aarhus 0396,DK,Dinamarca,Aarhus,Mid,Indian,1,Direct sales,2026-01-19,2026-01-01,2026-01
+R-0397,Indian Odense 0397,DK,Dinamarca,Odense,Metro,Indian,0,Direct sales,2026-01-01,2026-01-01,2026-01
+R-0398,Burger Aarhus 0398,DK,Dinamarca,Aarhus,Mid,Burger,1,Paid search,2025-11-04,2025-11-01,2025-11
+R-0399,Indian Trondheim 0399,NO,Noruega,Trondheim,Metro,Indian,1,Referral,2026-04-26,2026-04-01,2026-04
+R-0400,Thai Frankfurt 0400,DE,Alemania,Frankfurt,Metro,Thai,0,Referral,2026-04-16,2026-04-01,2026-04
+R-0401,Pizza Birmingham 0401,UK,Reino Unido,Birmingham,Mid,Pizza,0,Inbound,2025-07-04,2025-07-01,2025-07
+R-0402,Thai Gothenburg 0402,SE,Suecia,Gothenburg,Small,Thai,1,Inbound,2026-06-08,2026-06-01,2026-06
+R-0403,Pizza Esbjerg 0403,DK,Dinamarca,Esbjerg,Mid,Pizza,0,Referral,2026-05-30,2026-05-01,2026-05
+R-0404,Pizza Manchester 0404,UK,Reino Unido,Manchester,Metro,Pizza,0,Direct sales,2025-08-02,2025-08-01,2025-08
+R-0405,Indian London 0405,UK,Reino Unido,London,Small,Indian,0,Referral,2026-07-16,2026-07-01,2026-07
+R-0406,Burger Esbjerg 0406,DK,Dinamarca,Esbjerg,Small,Burger,1,Inbound,2026-07-05,2026-07-01,2026-07
+R-0407,Kebab Bergen 0407,NO,Noruega,Bergen,Mid,Kebab,0,Paid search,2025-11-21,2025-11-01,2025-11
+R-0408,Chinese Copenhagen 0408,DK,Dinamarca,Copenhagen,Mid,Chinese,0,Paid search,2026-04-30,2026-04-01,2026-04
+R-0409,Indian Aarhus 0409,DK,Dinamarca,Aarhus,Metro,Indian,0,Referral,2025-06-05,2025-06-01,2025-06
+R-0410,Indian Copenhagen 0410,DK,Dinamarca,Copenhagen,Metro,Indian,1,Partner,2025-11-09,2025-11-01,2025-11
+R-0411,Pizza Munich 0411,DE,Alemania,Munich,Mid,Pizza,0,Direct sales,2025-10-09,2025-10-01,2025-10
+R-0412,Thai Munich 0412,DE,Alemania,Munich,Mid,Thai,0,Referral,2025-10-31,2025-10-01,2025-10
+R-0413,Pizza Frankfurt 0413,DE,Alemania,Frankfurt,Small,Pizza,0,Partner,2025-09-15,2025-09-01,2025-09
+R-0414,Sushi London 0414,UK,Reino Unido,London,Metro,Unknown,0,Inbound,2026-07-26,2026-07-01,2026-07
+R-0415,Sushi Munich 0415,DE,Alemania,Munich,Mid,Sushi,0,Direct sales,2025-04-17,2025-04-01,2025-04
+R-0416,Indian Manchester 0416,UK,Reino Unido,Manchester,Small,Indian,0,Inbound,2025-11-26,2025-11-01,2025-11
+R-0417,Chinese Munich 0417,DE,Alemania,Munich,Mid,Chinese,1,Referral,2026-08-17,2026-08-01,2026-08
+R-0418,Burger London 0418,UK,Reino Unido,London,Mid,Burger,1,Inbound,2025-08-17,2025-08-01,2025-08
+R-0419,Sushi Stavanger 0419,NO,Noruega,Stavanger,Mid,Sushi,0,Inbound,2025-12-22,2025-12-01,2025-12
+R-0420,Burger Odense 0420,DK,Dinamarca,Odense,Metro,Burger,0,Inbound,2025-02-21,2025-02-01,2025-02
+R-0421,Pizza Birmingham 0421,UK,Reino Unido,Birmingham,Mid,Pizza,1,Inbound,2025-11-24,2025-11-01,2025-11
+R-0422,Pizza Copenhagen 0422,DK,Dinamarca,Copenhagen,Mid,Pizza,0,Paid search,2026-03-11,2026-03-01,2026-03
+R-0423,Indian Trondheim 0423,NO,Noruega,Trondheim,Mid,Indian,0,Direct sales,2025-07-20,2025-07-01,2025-07
+R-0424,Pizza Aarhus 0424,DK,Dinamarca,Aarhus,Metro,Pizza,0,Inbound,2025-06-19,2025-06-01,2025-06
+R-0425,Nordic Aarhus 0425,DK,Dinamarca,Aarhus,Metro,Nordic,0,Direct sales,2026-01-07,2026-01-01,2026-01
+R-0426,Sushi Bristol 0426,UK,Reino Unido,Bristol,Mid,Sushi,1,Referral,2025-02-01,2025-02-01,2025-02
+R-0427,Pizza Esbjerg 0427,DK,Dinamarca,Esbjerg,Metro,Pizza,1,Paid search,2026-07-02,2026-07-01,2026-07
+R-0428,Burger Frankfurt 0428,DE,Alemania,Frankfurt,Mid,Burger,0,Partner,2026-03-31,2026-03-01,2026-03
+R-0429,Nordic Aarhus 0429,DK,Dinamarca,Aarhus,Metro,Nordic,0,Partner,2025-07-09,2025-07-01,2025-07
+R-0430,Kebab Birmingham 0430,UK,Reino Unido,Birmingham,Metro,Kebab,0,Paid search,2026-04-17,2026-04-01,2026-04
+R-0431,Nordic London 0431,UK,Reino Unido,London,Metro,Nordic,1,Partner,2026-02-11,2026-02-01,2026-02
+R-0432,Pizza Gothenburg 0432,SE,Suecia,Gothenburg,Small,Pizza,0,Paid search,2026-05-18,2026-05-01,2026-05
+R-0433,Sushi Esbjerg 0433,DK,Dinamarca,Esbjerg,Small,Sushi,0,Inbound,2026-05-04,2026-05-01,2026-05
+R-0434,Pizza Bristol 0434,UK,Reino Unido,Bristol,Metro,Pizza,0,Referral,2025-03-26,2025-03-01,2025-03
+R-0435,Burger Uppsala 0435,SE,Suecia,Uppsala,Metro,Burger,0,Paid search,2026-02-10,2026-02-01,2026-02
+R-0436,Nordic Hamburg 0436,DE,Alemania,Hamburg,Mid,Nordic,0,Paid search,2025-03-28,2025-03-01,2025-03
+R-0437,Burger London 0437,UK,Reino Unido,London,Small,Burger,1,Direct sales,2026-02-04,2026-02-01,2026-02
+R-0438,Pizza Berlin 0438,DE,Alemania,Berlin,Metro,Pizza,0,Paid search,2026-05-21,2026-05-01,2026-05
+R-0439,Sushi Berlin 0439,DE,Alemania,Berlin,Metro,Sushi,0,Referral,2025-12-24,2025-12-01,2025-12
+R-0440,Pizza Esbjerg 0440,DK,Dinamarca,Esbjerg,Metro,Pizza,1,Direct sales,2026-03-18,2026-03-01,2026-03
+R-0441,Thai Frankfurt 0441,DE,Alemania,Frankfurt,Metro,Unknown,1,Paid search,2026-08-08,2026-08-01,2026-08
+R-0442,Thai London 0442,UK,Reino Unido,London,Metro,Thai,0,Referral,2026-04-10,2026-04-01,2026-04
+R-0443,Indian Manchester 0443,UK,Reino Unido,Manchester,Small,Indian,0,Paid search,2026-06-17,2026-06-01,2026-06
+R-0444,Pizza Aarhus 0444,DK,Dinamarca,Aarhus,Mid,Pizza,1,Partner,2025-12-23,2025-12-01,2025-12
+R-0445,Burger Manchester 0445,UK,Reino Unido,Manchester,Metro,Burger,0,Partner,2025-07-22,2025-07-01,2025-07
+R-0446,Thai Bergen 0446,NO,Noruega,Bergen,Metro,Thai,0,Inbound,2025-01-22,2025-01-01,2025-01
+R-0447,Pizza Birmingham 0447,UK,Reino Unido,Birmingham,Mid,Pizza,0,Direct sales,2025-08-26,2025-08-01,2025-08
+R-0448,Sushi Uppsala 0448,SE,Suecia,Uppsala,Metro,Sushi,0,Partner,2026-02-09,2026-02-01,2026-02
+R-0449,Pizza Stockholm 0449,SE,Suecia,Stockholm,Mid,Pizza,0,Partner,2026-01-28,2026-01-01,2026-01
+R-0450,Pizza Stavanger 0450,NO,Noruega,Stavanger,Mid,Pizza,1,Inbound,2025-09-17,2025-09-01,2025-09
+R-0451,Indian Birmingham 0451,UK,Reino Unido,Birmingham,Mid,Indian,1,Paid search,2025-05-19,2025-05-01,2025-05
+R-0452,Vegetarian Odense 0452,DK,Dinamarca,Odense,Mid,Vegetarian,1,Partner,2026-07-21,2026-07-01,2026-07
+R-0453,Sushi Aarhus 0453,DK,Dinamarca,Aarhus,Metro,Sushi,0,Paid search,2025-09-12,2025-09-01,2025-09
+R-0454,Burger Copenhagen 0454,DK,Dinamarca,Copenhagen,Metro,Burger,0,Partner,2025-06-30,2025-06-01,2025-06
+R-0455,Pizza Aalborg 0455,DK,Dinamarca,Aalborg,Metro,Pizza,0,Direct sales,2025-09-27,2025-09-01,2025-09
+R-0456,Thai Copenhagen 0456,DK,Dinamarca,Copenhagen,Mid,Thai,0,Direct sales,2026-07-09,2026-07-01,2026-07
+R-0457,Pizza Bergen 0457,NO,Noruega,Bergen,Metro,Pizza,0,Inbound,2025-11-17,2025-11-01,2025-11
+R-0458,Pizza Esbjerg 0458,DK,Dinamarca,Esbjerg,Metro,Pizza,0,Direct sales,2026-06-08,2026-06-01,2026-06
+R-0459,Kebab Copenhagen 0459,DK,Dinamarca,Copenhagen,Mid,Kebab,0,Partner,2026-05-30,2026-05-01,2026-05
+R-0460,Kebab Copenhagen 0460,DK,Dinamarca,Copenhagen,Mid,Kebab,0,Paid search,2026-08-09,2026-08-01,2026-08
+R-0461,Nordic Copenhagen 0461,DK,Dinamarca,Copenhagen,Small,Unknown,0,Partner,2026-04-07,2026-04-01,2026-04
+R-0462,Indian Birmingham 0462,UK,Reino Unido,Birmingham,Metro,Indian,0,Paid search,2025-12-23,2025-12-01,2025-12
+R-0463,Burger Hamburg 0463,DE,Alemania,Hamburg,Metro,Burger,0,Paid search,2025-12-11,2025-12-01,2025-12
+R-0464,Nordic Copenhagen 0464,DK,Dinamarca,Copenhagen,Small,Nordic,0,Direct sales,2025-04-01,2025-04-01,2025-04
+R-0465,Vegetarian Leeds 0465,UK,Reino Unido,Leeds,Small,Vegetarian,0,Direct sales,2026-02-21,2026-02-01,2026-02
+R-0466,Burger Odense 0466,DK,Dinamarca,Odense,Metro,Burger,0,Inbound,2025-07-11,2025-07-01,2025-07
+R-0467,Pizza Manchester 0467,UK,Reino Unido,Manchester,Metro,Pizza,0,Inbound,2025-10-26,2025-10-01,2025-10
+R-0468,Thai Aalborg 0468,DK,Dinamarca,Aalborg,Small,Thai,0,Paid search,2025-09-07,2025-09-01,2025-09
+R-0469,Thai Bergen 0469,NO,Noruega,Bergen,Small,Thai,1,Paid search,2025-10-31,2025-10-01,2025-10
+R-0470,Vegetarian Copenhagen 0470,DK,Dinamarca,Copenhagen,Mid,Vegetarian,0,Referral,2025-10-05,2025-10-01,2025-10
+R-0471,Kebab Stockholm 0471,SE,Suecia,Stockholm,Small,Unknown,0,Paid search,2026-05-16,2026-05-01,2026-05
+R-0472,Chinese Berlin 0472,DE,Alemania,Berlin,Metro,Chinese,0,Direct sales,2025-04-22,2025-04-01,2025-04
+R-0473,Pizza Manchester 0473,UK,Reino Unido,Manchester,Mid,Pizza,0,Paid search,2026-02-04,2026-02-01,2026-02
+R-0474,Sushi Cologne 0474,DE,Alemania,Cologne,Mid,Sushi,1,Referral,2025-06-25,2025-06-01,2025-06
+R-0475,Burger Leeds 0475,UK,Reino Unido,Leeds,Mid,Burger,0,Inbound,2026-08-24,2026-08-01,2026-08
+R-0476,Chinese Munich 0476,DE,Alemania,Munich,Metro,Chinese,0,Inbound,2025-12-15,2025-12-01,2025-12
+R-0477,Kebab Oslo 0477,NO,Noruega,Oslo,Metro,Kebab,0,Inbound,2026-01-04,2026-01-01,2026-01
+R-0478,Pizza Aarhus 0478,DK,Dinamarca,Aarhus,Mid,Pizza,0,Paid search,2026-05-09,2026-05-01,2026-05
+R-0479,Burger Aalborg 0479,DK,Dinamarca,Aalborg,Metro,Burger,0,Inbound,2026-06-20,2026-06-01,2026-06
+R-0480,Thai London 0480,UK,Reino Unido,London,Metro,Thai,0,Referral,2026-06-17,2026-06-01,2026-06
+R-0481,Sushi Malmo 0481,SE,Suecia,Malmo,Mid,Unknown,1,Partner,2026-04-08,2026-04-01,2026-04
+R-0482,Thai Trondheim 0482,NO,Noruega,Trondheim,Mid,Thai,0,Paid search,2025-12-07,2025-12-01,2025-12
+R-0483,Indian Esbjerg 0483,DK,Dinamarca,Esbjerg,Metro,Indian,0,Referral,2025-10-20,2025-10-01,2025-10
+R-0484,Kebab Aalborg 0484,DK,Dinamarca,Aalborg,Mid,Kebab,0,Partner,2026-01-05,2026-01-01,2026-01
+R-0485,Pizza Esbjerg 0485,DK,Dinamarca,Esbjerg,Small,Pizza,0,Partner,2026-08-25,2026-08-01,2026-08
+R-0486,Kebab Aalborg 0486,DK,Dinamarca,Aalborg,Metro,Kebab,0,Referral,2025-12-03,2025-12-01,2025-12
+R-0487,Indian Aalborg 0487,DK,Dinamarca,Aalborg,Mid,Indian,1,Direct sales,2025-04-26,2025-04-01,2025-04
+R-0488,Indian Copenhagen 0488,DK,Dinamarca,Copenhagen,Small,Indian,0,Referral,2025-08-21,2025-08-01,2025-08
+R-0489,Pizza Bergen 0489,NO,Noruega,Bergen,Metro,Pizza,0,Direct sales,2026-02-03,2026-02-01,2026-02
+R-0490,Burger Oslo 0490,NO,Noruega,Oslo,Small,Unknown,1,Paid search,2025-11-16,2025-11-01,2025-11
+R-0491,Pizza London 0491,UK,Reino Unido,London,Metro,Pizza,0,Inbound,2025-01-27,2025-01-01,2025-01
+R-0492,Burger Bristol 0492,UK,Reino Unido,Bristol,Mid,Burger,0,Inbound,2026-02-05,2026-02-01,2026-02
+R-0493,Nordic Odense 0493,DK,Dinamarca,Odense,Metro,Nordic,0,Referral,2026-04-04,2026-04-01,2026-04
+R-0494,Chinese Aarhus 0494,DK,Dinamarca,Aarhus,Small,Chinese,0,Paid search,2026-07-25,2026-07-01,2026-07
+R-0495,Nordic Oslo 0495,NO,Noruega,Oslo,Metro,Nordic,0,Inbound,2025-02-16,2025-02-01,2025-02
+R-0496,Indian Munich 0496,DE,Alemania,Munich,Small,Unknown,0,Inbound,2026-08-17,2026-08-01,2026-08
+R-0497,Burger Aarhus 0497,DK,Dinamarca,Aarhus,Metro,Burger,0,Partner,2025-10-30,2025-10-01,2025-10
+R-0498,Chinese Bristol 0498,UK,Reino Unido,Bristol,Metro,Chinese,0,Direct sales,2026-06-03,2026-06-01,2026-06
+R-0499,Kebab Cologne 0499,DE,Alemania,Cologne,Mid,Kebab,0,Direct sales,2026-04-29,2026-04-01,2026-04
+R-0500,Kebab Stockholm 0500,SE,Suecia,Stockholm,Metro,Kebab,0,Direct sales,2026-08-14,2026-08-01,2026-08
+R-0501,Pizza Frankfurt 0501,DE,Alemania,Frankfurt,Mid,Pizza,1,Paid search,2025-09-29,2025-09-01,2025-09
+R-0502,Thai Odense 0502,DK,Dinamarca,Odense,Mid,Thai,1,Partner,2025-07-24,2025-07-01,2025-07
+R-0503,Thai Aarhus 0503,DK,Dinamarca,Aarhus,Metro,Thai,0,Inbound,2026-04-12,2026-04-01,2026-04
+R-0504,Burger Stavanger 0504,NO,Noruega,Stavanger,Mid,Burger,1,Direct sales,2026-05-09,2026-05-01,2026-05
+R-0505,Kebab Odense 0505,DK,Dinamarca,Odense,Mid,Kebab,0,Direct sales,2026-03-16,2026-03-01,2026-03
+R-0506,Vegetarian Cologne 0506,DE,Alemania,Cologne,Metro,Vegetarian,0,Inbound,2026-08-22,2026-08-01,2026-08
+R-0507,Pizza Frankfurt 0507,DE,Alemania,Frankfurt,Metro,Pizza,0,Referral,2025-10-16,2025-10-01,2025-10
+R-0508,Pizza Bristol 0508,UK,Reino Unido,Bristol,Small,Pizza,0,Inbound,2026-02-06,2026-02-01,2026-02
+R-0509,Chinese Copenhagen 0509,DK,Dinamarca,Copenhagen,Mid,Chinese,0,Direct sales,2026-06-02,2026-06-01,2026-06
+R-0510,Nordic Odense 0510,DK,Dinamarca,Odense,Mid,Nordic,0,Partner,2025-04-07,2025-04-01,2025-04
+R-0511,Burger Copenhagen 0511,DK,Dinamarca,Copenhagen,Metro,Burger,0,Referral,2026-06-02,2026-06-01,2026-06
+R-0512,Nordic Munich 0512,DE,Alemania,Munich,Metro,Nordic,0,Paid search,2025-09-29,2025-09-01,2025-09
+R-0513,Burger London 0513,UK,Reino Unido,London,Mid,Burger,1,Inbound,2025-05-19,2025-05-01,2025-05
+R-0514,Pizza Berlin 0514,DE,Alemania,Berlin,Metro,Pizza,0,Referral,2025-10-09,2025-10-01,2025-10
+R-0515,Nordic Odense 0515,DK,Dinamarca,Odense,Small,Nordic,0,Direct sales,2025-11-17,2025-11-01,2025-11
+R-0516,Pizza Copenhagen 0516,DK,Dinamarca,Copenhagen,Mid,Pizza,0,Inbound,2026-04-20,2026-04-01,2026-04
+R-0517,Pizza Leeds 0517,UK,Reino Unido,Leeds,Metro,Pizza,0,Inbound,2026-07-05,2026-07-01,2026-07
+R-0518,Vegetarian Aarhus 0518,DK,Dinamarca,Aarhus,Metro,Vegetarian,0,Inbound,2025-09-17,2025-09-01,2025-09
+R-0519,Kebab Leeds 0519,UK,Reino Unido,Leeds,Metro,Kebab,0,Partner,2025-05-16,2025-05-01,2025-05
+R-0520,Indian Leeds 0520,UK,Reino Unido,Leeds,Small,Indian,0,Referral,2025-12-17,2025-12-01,2025-12
+R-0521,Sushi Manchester 0521,UK,Reino Unido,Manchester,Metro,Sushi,0,Direct sales,2026-08-20,2026-08-01,2026-08
+R-0522,Kebab Odense 0522,DK,Dinamarca,Odense,Metro,Kebab,1,Referral,2026-07-30,2026-07-01,2026-07
+R-0523,Pizza Esbjerg 0523,DK,Dinamarca,Esbjerg,Metro,Pizza,0,Direct sales,2025-04-26,2025-04-01,2025-04
+R-0524,Thai London 0524,UK,Reino Unido,London,Mid,Thai,0,Inbound,2026-03-29,2026-03-01,2026-03
+R-0525,Burger Odense 0525,DK,Dinamarca,Odense,Metro,Burger,0,Inbound,2025-01-25,2025-01-01,2025-01
+R-0526,Chinese Uppsala 0526,SE,Suecia,Uppsala,Mid,Chinese,0,Direct sales,2025-05-13,2025-05-01,2025-05
+R-0527,Chinese Aarhus 0527,DK,Dinamarca,Aarhus,Metro,Chinese,0,Partner,2025-12-30,2025-12-01,2025-12
+R-0528,Chinese Aarhus 0528,DK,Dinamarca,Aarhus,Small,Unknown,0,Direct sales,2026-05-05,2026-05-01,2026-05
+R-0529,Pizza Copenhagen 0529,DK,Dinamarca,Copenhagen,Metro,Pizza,0,Inbound,2025-09-06,2025-09-01,2025-09
+R-0530,Indian Aarhus 0530,DK,Dinamarca,Aarhus,Metro,Indian,0,Direct sales,2025-08-22,2025-08-01,2025-08
+R-0531,Burger Uppsala 0531,SE,Suecia,Uppsala,Small,Burger,0,Direct sales,2025-01-25,2025-01-01,2025-01
+R-0532,Thai Birmingham 0532,UK,Reino Unido,Birmingham,Mid,Thai,1,Referral,2026-07-16,2026-07-01,2026-07
+R-0533,Burger Gothenburg 0533,SE,Suecia,Gothenburg,Metro,Burger,0,Referral,2025-07-21,2025-07-01,2025-07
+R-0534,Kebab Berlin 0534,DE,Alemania,Berlin,Metro,Kebab,0,Paid search,2025-09-29,2025-09-01,2025-09
+R-0535,Burger Leeds 0535,UK,Reino Unido,Leeds,Mid,Burger,1,Direct sales,2025-08-09,2025-08-01,2025-08
+R-0536,Pizza Uppsala 0536,SE,Suecia,Uppsala,Metro,Pizza,0,Inbound,2025-06-30,2025-06-01,2025-06
+R-0537,Chinese Hamburg 0537,DE,Alemania,Hamburg,Metro,Unknown,0,Referral,2026-08-19,2026-08-01,2026-08
+R-0538,Pizza Bergen 0538,NO,Noruega,Bergen,Mid,Pizza,0,Direct sales,2025-01-08,2025-01-01,2025-01
+R-0539,Kebab Odense 0539,DK,Dinamarca,Odense,Metro,Kebab,0,Direct sales,2025-12-09,2025-12-01,2025-12
+R-0540,Pizza Aarhus 0540,DK,Dinamarca,Aarhus,Mid,Pizza,1,Referral,2026-06-06,2026-06-01,2026-06
+R-0541,Burger Birmingham 0541,UK,Reino Unido,Birmingham,Mid,Burger,0,Partner,2026-01-12,2026-01-01,2026-01
+R-0542,Kebab Oslo 0542,NO,Noruega,Oslo,Mid,Kebab,0,Direct sales,2026-05-25,2026-05-01,2026-05
+R-0543,Burger Frankfurt 0543,DE,Alemania,Frankfurt,Mid,Burger,0,Paid search,2026-02-12,2026-02-01,2026-02
+R-0544,Pizza Aarhus 0544,DK,Dinamarca,Aarhus,Small,Pizza,0,Partner,2026-04-18,2026-04-01,2026-04
+R-0545,Kebab Birmingham 0545,UK,Reino Unido,Birmingham,Metro,Unknown,0,Direct sales,2025-05-15,2025-05-01,2025-05
+R-0546,Vegetarian Gothenburg 0546,SE,Suecia,Gothenburg,Small,Vegetarian,0,Paid search,2026-06-18,2026-06-01,2026-06
+R-0547,Kebab Stockholm 0547,SE,Suecia,Stockholm,Metro,Kebab,0,Referral,2025-10-02,2025-10-01,2025-10
+R-0548,Kebab Leeds 0548,UK,Reino Unido,Leeds,Mid,Kebab,0,Partner,2025-10-26,2025-10-01,2025-10
+R-0549,Kebab Esbjerg 0549,DK,Dinamarca,Esbjerg,Metro,Kebab,0,Partner,2025-03-27,2025-03-01,2025-03
+R-0550,Thai Aarhus 0550,DK,Dinamarca,Aarhus,Small,Thai,0,Partner,2025-01-16,2025-01-01,2025-01
+R-0551,Sushi Odense 0551,DK,Dinamarca,Odense,Metro,Sushi,1,Inbound,2025-06-08,2025-06-01,2025-06
+R-0552,Burger Manchester 0552,UK,Reino Unido,Manchester,Metro,Burger,0,Referral,2026-01-20,2026-01-01,2026-01
+R-0553,Burger Uppsala 0553,SE,Suecia,Uppsala,Mid,Burger,0,Paid search,2025-05-12,2025-05-01,2025-05
+R-0554,Thai Frankfurt 0554,DE,Alemania,Frankfurt,Metro,Thai,0,Inbound,2025-11-24,2025-11-01,2025-11
+R-0555,Burger Birmingham 0555,UK,Reino Unido,Birmingham,Mid,Burger,0,Direct sales,2025-10-08,2025-10-01,2025-10
+R-0556,Nordic Copenhagen 0556,DK,Dinamarca,Copenhagen,Mid,Nordic,0,Referral,2026-01-01,2026-01-01,2026-01
+R-0557,Burger Esbjerg 0557,DK,Dinamarca,Esbjerg,Metro,Burger,0,Partner,2026-06-05,2026-06-01,2026-06
+R-0558,Pizza Bristol 0558,UK,Reino Unido,Bristol,Metro,Pizza,0,Referral,2026-07-22,2026-07-01,2026-07
+R-0559,Kebab Bristol 0559,UK,Reino Unido,Bristol,Mid,Kebab,0,Paid search,2025-01-23,2025-01-01,2025-01
+R-0560,Pizza Esbjerg 0560,DK,Dinamarca,Esbjerg,Metro,Pizza,0,Inbound,2025-08-04,2025-08-01,2025-08
+R-0561,Vegetarian Malmo 0561,SE,Suecia,Malmo,Metro,Vegetarian,0,Referral,2026-06-20,2026-06-01,2026-06
+R-0562,Thai Aalborg 0562,DK,Dinamarca,Aalborg,Mid,Thai,1,Direct sales,2026-06-20,2026-06-01,2026-06
+R-0563,Burger Berlin 0563,DE,Alemania,Berlin,Mid,Unknown,0,Partner,2025-04-16,2025-04-01,2025-04
+R-0564,Thai Munich 0564,DE,Alemania,Munich,Metro,Thai,0,Inbound,2026-06-22,2026-06-01,2026-06
+R-0565,Vegetarian Trondheim 0565,NO,Noruega,Trondheim,Small,Vegetarian,0,Partner,2026-06-19,2026-06-01,2026-06
+R-0566,Kebab Berlin 0566,DE,Alemania,Berlin,Metro,Kebab,1,Partner,2025-11-15,2025-11-01,2025-11
+R-0567,Vegetarian Aalborg 0567,DK,Dinamarca,Aalborg,Mid,Vegetarian,0,Inbound,2025-12-17,2025-12-01,2025-12
+R-0568,Sushi Esbjerg 0568,DK,Dinamarca,Esbjerg,Metro,Sushi,0,Paid search,2025-01-06,2025-01-01,2025-01
+R-0569,Vegetarian Stockholm 0569,SE,Suecia,Stockholm,Mid,Vegetarian,0,Direct sales,2026-05-24,2026-05-01,2026-05
+R-0570,Vegetarian Birmingham 0570,UK,Reino Unido,Birmingham,Metro,Vegetarian,0,Inbound,2025-01-06,2025-01-01,2025-01
+R-0571,Vegetarian Frankfurt 0571,DE,Alemania,Frankfurt,Mid,Vegetarian,1,Partner,2026-08-31,2026-08-01,2026-08
+R-0572,Nordic Cologne 0572,DE,Alemania,Cologne,Metro,Nordic,0,Paid search,2025-10-19,2025-10-01,2025-10
+R-0573,Sushi London 0573,UK,Reino Unido,London,Metro,Sushi,0,Inbound,2026-05-26,2026-05-01,2026-05
+R-0574,Burger Copenhagen 0574,DK,Dinamarca,Copenhagen,Small,Burger,0,Paid search,2026-07-23,2026-07-01,2026-07
+R-0575,Burger Stockholm 0575,SE,Suecia,Stockholm,Metro,Burger,0,Inbound,2025-03-31,2025-03-01,2025-03
+R-0576,Thai Aalborg 0576,DK,Dinamarca,Aalborg,Metro,Thai,0,Direct sales,2025-10-29,2025-10-01,2025-10
+R-0577,Pizza Esbjerg 0577,DK,Dinamarca,Esbjerg,Small,Pizza,0,Referral,2025-09-18,2025-09-01,2025-09
+R-0578,Kebab Esbjerg 0578,DK,Dinamarca,Esbjerg,Metro,Kebab,0,Inbound,2026-02-17,2026-02-01,2026-02
+R-0579,Burger London 0579,UK,Reino Unido,London,Small,Burger,0,Inbound,2025-01-18,2025-01-01,2025-01
+R-0580,Thai Copenhagen 0580,DK,Dinamarca,Copenhagen,Mid,Thai,0,Referral,2025-07-14,2025-07-01,2025-07
+R-0581,Sushi Stockholm 0581,SE,Suecia,Stockholm,Metro,Sushi,0,Inbound,2025-11-06,2025-11-01,2025-11
+R-0582,Indian London 0582,UK,Reino Unido,London,Mid,Indian,0,Partner,2026-06-07,2026-06-01,2026-06
+R-0583,Burger Frankfurt 0583,DE,Alemania,Frankfurt,Metro,Burger,0,Inbound,2026-08-21,2026-08-01,2026-08
+R-0584,Pizza Bristol 0584,UK,Reino Unido,Bristol,Metro,Pizza,0,Partner,2026-06-24,2026-06-01,2026-06
+R-0585,Thai London 0585,UK,Reino Unido,London,Metro,Thai,0,Direct sales,2025-08-30,2025-08-01,2025-08
+R-0586,Kebab Copenhagen 0586,DK,Dinamarca,Copenhagen,Small,Kebab,0,Paid search,2025-01-06,2025-01-01,2025-01
+R-0587,Burger Aalborg 0587,DK,Dinamarca,Aalborg,Small,Burger,0,Paid search,2026-05-03,2026-05-01,2026-05
+R-0588,Burger Uppsala 0588,SE,Suecia,Uppsala,Small,Burger,0,Direct sales,2026-02-26,2026-02-01,2026-02
+R-0589,Kebab Bristol 0589,UK,Reino Unido,Bristol,Metro,Kebab,0,Direct sales,2025-03-20,2025-03-01,2025-03
+R-0590,Pizza Stavanger 0590,NO,Noruega,Stavanger,Mid,Pizza,1,Referral,2026-02-18,2026-02-01,2026-02
+R-0591,Thai Bergen 0591,NO,Noruega,Bergen,Metro,Thai,0,Partner,2026-08-08,2026-08-01,2026-08
+R-0592,Pizza London 0592,UK,Reino Unido,London,Metro,Pizza,0,Partner,2026-03-04,2026-03-01,2026-03
+R-0593,Pizza Copenhagen 0593,DK,Dinamarca,Copenhagen,Mid,Pizza,0,Direct sales,2026-04-19,2026-04-01,2026-04
+R-0594,Sushi Hamburg 0594,DE,Alemania,Hamburg,Mid,Sushi,0,Paid search,2025-04-26,2025-04-01,2025-04
+R-0595,Burger Aarhus 0595,DK,Dinamarca,Aarhus,Metro,Burger,0,Inbound,2025-12-22,2025-12-01,2025-12
+R-0596,Pizza Bristol 0596,UK,Reino Unido,Bristol,Mid,Pizza,0,Direct sales,2026-05-23,2026-05-01,2026-05
+R-0597,Kebab Manchester 0597,UK,Reino Unido,Manchester,Small,Unknown,0,Paid search,2025-08-01,2025-08-01,2025-08
+R-0598,Pizza Stavanger 0598,NO,Noruega,Stavanger,Mid,Pizza,0,Paid search,2026-06-25,2026-06-01,2026-06
+R-0599,Nordic Uppsala 0599,SE,Suecia,Uppsala,Small,Nordic,0,Inbound,2026-08-31,2026-08-01,2026-08
+R-0600,Pizza Uppsala 0600,SE,Suecia,Uppsala,Metro,Pizza,0,Inbound,2026-06-09,2026-06-01,2026-06

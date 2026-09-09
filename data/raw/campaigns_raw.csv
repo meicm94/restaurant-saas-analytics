@@ -1,0 +1,4 @@
+campaign_id,campaign_name,campaign_type,start_date,end_date,budget_eur,is_experiment
+CMP-001,Referral push Q3 2025,referral,2025-07-01,2025-09-30,45000,0
+CMP-002,Winback DK 2026,winback,2026-01-15,2026-03-15,28000,0
+CMP-003,New onboarding flow (A/B test),onboarding,2025-10-01,2026-06-30,60000,1

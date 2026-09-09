@@ -1,0 +1,4 @@
+order_status,tratamiento,pedidos,pct_pedidos,valor_eur
+completed,Cuenta como ingreso,242786,95.54,7587255.52
+cancelled,No cuenta como ingreso,8297,3.26,261986.04
+refunded,No cuenta como ingreso,3048,1.2,94597.13

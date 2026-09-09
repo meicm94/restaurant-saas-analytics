@@ -1,0 +1,16 @@
+{
+  "periodo": "2025-01 a 2026-08",
+  "restaurantes": 600,
+  "pedidos_totales": 254131,
+  "gmv_total_eur": 7587255.52,
+  "clientes_activos_ultimo_mes": 443,
+  "mrr_ultimo_mes_eur": 61803.45,
+  "arr_ultimo_mes_eur": 741641.4,
+  "arpu_ultimo_mes_eur": 139.51,
+  "ticket_medio_eur": 31.25,
+  "churn_mensual_medio_12m_pct": 4.06,
+  "nrr_medio_12m_pct": 98.1,
+  "retencion_m3_media_pct": 89.3,
+  "retencion_m6_media_pct": 77.5,
+  "crecimiento_mrr_medio_6m_pct": 8.04
+}

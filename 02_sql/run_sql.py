@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """
-Ejecuta todos los ficheros .sql de esta carpeta contra db/restaurant_saas.db,
-imprime un extracto de cada resultado y lo exporta a outputs/sql_results/.
+Run the SQL files in this directory against db/restaurant_saas.db, print a
+preview of every result, and export each query to outputs/sql_results/.
 
-Cada consulta se marca en el .sql con una linea "-- >>> nombre".
+Queries are separated by markers in the form "-- >>> query_name".
 
-Ejecutar: python 02_sql/run_sql.py            (todo)
-          python 02_sql/run_sql.py 04         (solo los ficheros que empiezan por 04)
+Run: python 02_sql/run_sql.py            (all files)
+     python 02_sql/run_sql.py 04         (files whose names begin with 04)
 """
 from pathlib import Path
 import sqlite3
@@ -47,8 +47,8 @@ for f in files:
         path = OUT / f"{f.stem}__{name}.csv"
         df.to_csv(path, index=False)
         total += 1
-        print(f"\n{'=' * 100}\n{f.name}  >>>  {name}   ({len(df):,} filas)\n{'=' * 100}")
+        print(f"\n{'=' * 100}\n{f.name}  >>>  {name}   ({len(df):,} rows)\n{'=' * 100}")
         print(df.head(12).to_string(index=False))
 
 con.close()
-print(f"\n\n{total} consultas ejecutadas. Resultados en {OUT}")
+print(f"\n\nExecuted {total} queries. Results saved to {OUT}")

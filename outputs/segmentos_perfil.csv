@@ -1,5 +1,0 @@
-segmento,restaurantes,pedidos_mes,ticket_medio,meses_activo,tickets_mes,volatilidad,pct_app,pct_delivery,mrr_medio,pct_baja,gmv_mes_estimado,nombre
-0,136,42.26,38.41,9.912,0.373,0.348,0.566,0.448,135.869,0.243,1623.0,Ticket alto
-1,137,23.012,34.228,7.292,0.246,0.497,0.542,0.717,92.404,0.394,788.0,Larga cola
-2,174,79.491,26.672,10.19,0.405,0.34,0.518,0.682,169.407,0.184,2120.0,Motor de volumen
-3,45,30.869,30.169,5.244,1.36,0.516,0.488,0.569,117.94,0.289,931.0,Alta carga de soporte

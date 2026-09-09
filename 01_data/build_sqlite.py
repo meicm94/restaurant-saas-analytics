@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 """
-Paso 3: carga la capa limpia en una base SQLite consultable.
+Step 3: load the clean layer into a query-ready SQLite database.
 
-SQLite se usa porque no necesita servidor y permite practicar el 95% de lo
-que se pide en una vacante de analista: JOIN, CASE, CTE, funciones de ventana
-y agregaciones. Las diferencias con T-SQL / Fabric estan anotadas en
-02_sql/00_schema.sql.
+SQLite keeps the project serverless while supporting the analytical SQL used
+in typical analyst roles: joins, CASE expressions, CTEs, window functions, and
+aggregations. Portability notes for T-SQL and Microsoft Fabric are documented
+in 02_sql/00_schema.sql.
 
-Salida  : db/restaurant_saas.db
-Ejecutar: python 01_data/build_sqlite.py
+Output: db/restaurant_saas.db
+Run:    python 01_data/build_sqlite.py
 """
 from pathlib import Path
 import sqlite3
@@ -50,34 +50,33 @@ con = sqlite3.connect(DB)
 for t in TABLES:
     df = pd.read_csv(CLEAN / f"{t}.csv")
     for c in DATE_COLS.get(t, []):
-        # las fechas se guardan como TEXT ISO 'YYYY-MM-DD': es lo que entienden
-        # las funciones date() y strftime() de SQLite
+        # Store dates as ISO TEXT because SQLite date functions use this format
         df[c] = pd.to_datetime(df[c]).dt.strftime("%Y-%m-%d")
     df.to_sql(t, con, index=False)
-    print(f"{t:<28} {len(df):>8,} filas")
+    print(f"{t:<28} {len(df):>8,} rows")
 
 for stmt in INDEXES:
     con.execute(stmt)
 con.commit()
 
-# comprobaciones de integridad
+# Referential-integrity checks
 checks = {
-    "pedidos sin restaurante":
+    "orders without a restaurant":
         "SELECT COUNT(*) FROM fact_order o LEFT JOIN dim_restaurant r "
         "USING(restaurant_id) WHERE r.restaurant_id IS NULL",
-    "suscripciones sin plan":
+    "subscriptions without a plan":
         "SELECT COUNT(*) FROM fact_subscription s LEFT JOIN dim_plan p "
         "USING(plan_id) WHERE p.plan_id IS NULL",
-    "pedidos anteriores al alta":
+    "orders placed before signup":
         "SELECT COUNT(*) FROM fact_order o JOIN dim_restaurant r USING(restaurant_id) "
         "WHERE o.order_date < r.signup_date",
-    "restaurantes con >1 suscripcion activa":
+    "restaurants with >1 active subscription":
         "SELECT COUNT(*) FROM (SELECT restaurant_id FROM fact_subscription "
         "WHERE end_date IS NULL GROUP BY restaurant_id HAVING COUNT(*) > 1)",
 }
-print("\nIntegridad referencial")
+print("\nReferential integrity")
 for label, q in checks.items():
     n = con.execute(q).fetchone()[0]
     print(f"  {label:<40} {n}")
 con.close()
-print(f"\nBase creada: {DB}  ({DB.stat().st_size / 1e6:.1f} MB)")
+print(f"\nDatabase created: {DB}  ({DB.stat().st_size / 1e6:.1f} MB)")

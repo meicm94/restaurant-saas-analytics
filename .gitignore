@@ -1,7 +1,8 @@
 __pycache__/
-*.pyc
+*.py[cod]
 .ipynb_checkpoints/
 .DS_Store
+.venv/
 
-# Generated database; rebuild with python run_all.py
+# Generated database; rebuild with python3 run_all.py
 db/*.db

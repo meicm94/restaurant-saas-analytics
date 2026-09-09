@@ -1,213 +1,247 @@
-# Restaurant SaaS · Revenue, Retention & Experimentation Analytics
+# Restaurant SaaS Analytics
 
-Analítica de negocio de extremo a extremo para una plataforma SaaS que vende a
-restaurantes un sistema de pedidos online de marca propia: los restaurantes pagan
-una **suscripción mensual** y la plataforma cobra además una **comisión sobre el
-GMV** que procesan.
+An end-to-end commercial analytics project for a European restaurant software
+platform with subscription and transaction-based revenue. The repository turns
+deliberately imperfect source files into decision-ready metrics, predictive
+models, and a business recommendation from a randomised experiment.
 
-El proyecto recorre el ciclo completo: datos crudos sucios → limpieza → SQL →
-modelo semántico y DAX → modelos predictivos → un experimento A/B leído y
-convertido en recomendación de negocio.
+**SQL · Python · pandas · scikit-learn · statistical testing · Power BI design**
 
-**600 restaurantes · 254.131 pedidos · 7,6 M€ de GMV · 20 meses (2025-01 a 2026-08) · 5 mercados europeos**
+> 600 restaurants · 254,131 orders · EUR 7.6M GMV · 20 months · 5 markets
 
----
+## Executive summary
 
-## Las cinco conclusiones
+The business reached **EUR 61,803 in monthly recurring revenue**—equivalent to
+**EUR 742K ARR**—with **443 active customers** in August 2026. Growth is strong,
+but the MRR bridge shows that it is driven primarily by new customers rather
+than expansion within the installed base. Twelve-month average NRR is **98.1%**,
+so acquisition remains essential to sustain the current trajectory.
 
-**1. El crecimiento es sano, pero depende por completo del cliente nuevo.**
-El MRR llega a **61.803 €** (ARR de 742 K€) con **443 restaurantes activos**, y crece
-un **8,0 % mensual** de media en los últimos seis meses. Casi todo ese crecimiento
-es MRR nuevo: la expansión de la cartera existente aporta muy poco y el NRR se queda
-en **98,1 %**. Traducido: si se seca la captación, el negocio deja de crecer al mes
-siguiente.
+Retention is the clearest commercial opportunity. Average retention falls from
+**89% in month 3 to 78% in month 6**, while average monthly customer churn over
+the latest twelve months is **4.1%**. A churn model with **0.74 test AUC** makes
+that risk actionable: the highest-risk 10% of accounts contains **32% of the
+next month's churn**, a **3.2x lift** over random outreach.
 
-![MRR y clientes activos](outputs/figures/01_mrr_y_clientes.png)
-![Movimiento de MRR](outputs/figures/02_movimiento_mrr.png)
+Finally, the CMP-003 onboarding experiment produced a material improvement.
+Treatment restaurants completed **49% more orders in their first 30 days**
+(32.4 to 48.3 orders; 95% CI: +27% to +72%; p < 0.001). Thirty-day GMV rose by
+47%, while support demand did not change significantly. The recommended action
+is a staged rollout with cost per activated customer added to the measurement
+plan.
 
-**2. La retención se pierde entre el mes 2 y el mes 6.**
-De cada 100 restaurantes que entran, **89 siguen a los 3 meses y 78 a los 6**. El
-churn mensual medio del último año es del **4,1 %**. La caída no está en el arranque
-—el onboarding funciona— sino en el trimestre siguiente, que es justo donde hoy no
-hay ninguna acción comercial.
+## Business questions
 
-![Cohortes de retención](outputs/figures/03_cohortes_retencion.png)
+This project is organised around questions that finance, product, and commercial
+teams could act on:
 
-**3. La baja se puede anticipar con un mes de margen.**
-Una regresión logística sobre el panel restaurante-mes alcanza **AUC 0,74** en los
-meses de prueba. Ordenando la cartera por riesgo, **el 10 % con más riesgo concentra
-el 32 % de las bajas del mes siguiente**: llamar a esa lista es **3,2 veces más
-eficaz** que llamar al azar. Lo que predice la baja no es el tamaño, sino la
-*trayectoria*: la caída de pedidos respecto a la media reciente del propio
-restaurante, y los tickets de soporte.
+1. How are MRR, GMV, active customers, and total revenue evolving?
+2. Is growth coming from acquisition, expansion, reactivation, or contraction?
+3. At which lifecycle stage does retention deteriorate?
+4. Which accounts should a capacity-constrained retention team contact first?
+5. Which behavioural segments require different commercial playbooks?
+6. Did the new onboarding flow improve activation without increasing support load?
 
-![Coeficientes del modelo de baja](outputs/figures/06_churn_coeficientes.png)
+## Key findings
 
-**4. La cartera se gestiona mejor en cuatro grupos.**
+### 1. MRR is growing, but mainly through acquisition
 
-| Segmento | Restaurantes | Pedidos/mes | Ticket medio | % que acaba de baja |
-|---|---|---|---|---|
-| Motor de volumen | 174 | 79 | 27 € | 18 % |
-| Ticket alto | 136 | 42 | 38 € | 24 % |
-| Alta carga de soporte | 45 | 31 | 30 € | 29 % |
-| Larga cola | 137 | 23 | 34 € | **39 %** |
+Average monthly MRR growth over the latest six months is **8.0%**. Expansion
+revenue is limited, which leaves the business exposed if new-customer acquisition
+slows.
 
-La larga cola concentra el riesgo con el MRR más bajo: es el segmento donde una
-subida de precio o un servicio más automatizado tienen más sentido.
+![Monthly recurring revenue and active customers](outputs/figures/01_mrr_and_customers.png)
 
-![Segmentos de la cartera](outputs/figures/07_segmentos.png)
+![MRR movement](outputs/figures/02_mrr_movement.png)
 
-**5. El nuevo onboarding funciona, y bastante.**
-En el experimento aleatorizado CMP-003, los restaurantes con el nuevo flujo hicieron
-**un 49 % más de pedidos en sus primeros 30 días** (32,4 → 48,3 pedidos; IC 95 % del
-+27 % al +72 %; p < 0,001). El GMV a 30 días sube un **47 %** y la activación a 7 días
-pasa del 93,9 % al 100 %. El guardarraíl —tickets de soporte— no empeora (p = 0,64).
-**Recomendación: desplegar por mercados de forma escalonada**, midiendo además el
-coste por alta.
+### 2. The largest retention loss occurs between months 2 and 6
 
-![Experimento A/B](outputs/figures/08_experimento_ab.png)
+The onboarding period itself is comparatively stable. The sharper decline
+appears in the following quarter, suggesting that lifecycle interventions should
+focus on adoption and value realisation after initial setup.
 
----
+![Retention by signup cohort](outputs/figures/03_retention_cohorts.png)
 
-## Qué hay en el repositorio
+### 3. Declining engagement is an early warning of churn
 
+The churn model is designed for prioritisation rather than automated decisions.
+Recent activity relative to a restaurant's own baseline is more informative than
+absolute customer size. All coefficients are exported for inspection, and the
+README reports the operational metric that matters most: churn captured within
+the top-risk 10%.
+
+![Churn-model coefficients](outputs/figures/06_churn_coefficients.png)
+
+### 4. Four behavioural segments support distinct playbooks
+
+| Segment | Restaurants | Avg. monthly orders | Avg. order value | Historical churn |
+|---|---:|---:|---:|---:|
+| Volume Engine | 174 | 79 | EUR 27 | 18% |
+| High-Value Orders | 136 | 42 | EUR 38 | 24% |
+| Support Intensive | 45 | 31 | EUR 30 | 29% |
+| Long Tail | 137 | 23 | EUR 34 | **39%** |
+
+The segments overlap rather than forming naturally isolated clusters. Four were
+selected as a practical number of commercial playbooks, and that judgement is
+documented explicitly instead of being presented as a purely data-driven truth.
+
+![Restaurant behavioural segments](outputs/figures/07_segments.png)
+
+### 5. The new onboarding flow improved early product adoption
+
+The experiment includes sample-ratio and covariate-balance checks, Welch's
+t-test, a Mann-Whitney robustness test, covariate-adjusted OLS, secondary
+outcomes, a support guardrail, and a minimum detectable effect calculation.
+
+![Randomised onboarding experiment](outputs/figures/08_ab_experiment.png)
+
+The complete business-facing recommendation is available in
+[`outputs/onboarding_experiment_brief.md`](outputs/onboarding_experiment_brief.md).
+
+## Analytical workflow
+
+```mermaid
+flowchart LR
+    A[Raw CSV files] --> B[Cleaning and validation]
+    B --> C[SQLite star schema]
+    C --> D[SQL metric layer]
+    C --> E[Pandas modelling panel]
+    D --> F[Reconciliation checks]
+    E --> F
+    E --> G[Forecast, churn, segments]
+    C --> H[A/B experiment]
+    F --> I[Decision-ready outputs]
+    G --> I
+    H --> I
 ```
+
+## Repository structure
+
+```text
 restaurant-saas-analytics/
-├── 01_data/                 generación, limpieza y carga
-│   ├── generate_raw_data.py     simula el negocio y escribe CSV crudos (sucios a propósito)
-│   ├── clean_data.py            limpieza equivalente a los pasos de Power Query
-│   └── build_sqlite.py          carga la capa limpia y comprueba integridad
-├── 02_sql/                  biblioteca SQL comentada (31 consultas)
-│   ├── 00_schema.sql            modelo, convenciones y notas de portabilidad a T-SQL/Fabric
-│   ├── 01_exploration.sql       SELECT, WHERE, GROUP BY, CASE, HAVING
-│   ├── 02_joins.sql             INNER, LEFT y anti-joins
-│   ├── 03_cte_windows.sql       CTE, LAG, RANK, NTILE, medias móviles
-│   ├── 04_saas_metrics.sql      MRR, ARPU, GMV, movimiento de MRR, churn, NRR
-│   ├── 05_cohorts.sql           cohortes de retención y supervivencia por mercado
-│   ├── 06_experiment.sql        lectura del experimento en SQL
-│   └── run_sql.py               ejecuta todo y exporta cada resultado a CSV
-├── 03_python/               pandas y scikit-learn
-│   ├── 01_panel_y_metricas.py   panel restaurante-mes + contraste pandas vs SQL
-│   └── 02_modelos.py            regresión, clasificación y clustering
+├── 01_data/
+│   ├── generate_raw_data.py      # Synthetic source-system extracts
+│   ├── clean_data.py             # Cleaning, standardisation, and QA
+│   └── build_sqlite.py           # Star-schema load and integrity checks
+├── 02_sql/
+│   ├── 00_schema.sql             # Grain, definitions, and portability notes
+│   ├── 01_exploration.sql        # Core aggregation and CASE patterns
+│   ├── 02_joins.sql              # Customer, subscription, and campaign views
+│   ├── 03_cte_windows.sql        # CTEs and analytical window functions
+│   ├── 04_saas_metrics.sql       # MRR, ARPU, churn, NRR, and revenue
+│   ├── 05_cohorts.sql            # Retention and survival analysis
+│   ├── 06_experiment.sql         # Experiment aggregates
+│   └── run_sql.py                # Query runner and CSV export
+├── 03_python/
+│   ├── 01_panel_and_metrics.py   # Modelling panel and SQL reconciliation
+│   ├── 02_models.py              # GMV forecast, churn model, and clustering
+│   └── viz_style.py              # Shared accessible chart style
 ├── 04_experiment/
-│   └── ab_test_onboarding.py    SRM, equilibrio, t de Welch, OLS, potencia y ficha de negocio
-├── 05_powerbi/              lo que no cabe dentro de un .pbix
-│   ├── 01_modelo_estrella.md    relaciones, cardinalidades y por qué la de fechas es inactiva
-│   ├── 02_power_query_steps.md  código M paso a paso y trampas de configuración regional
-│   ├── 03_dax_medidas.md        biblioteca de medidas DAX comentada
-│   └── 04_guia_dashboard.md     tres páginas, tres preguntas
-├── data/raw/                CSV crudos (fechas en dos formatos, comas decimales, duplicados)
-├── data/clean/              capa limpia + panel restaurante-mes
-├── db/restaurant_saas.db    base SQLite lista para consultar
-└── outputs/                 figuras, resultados de las 31 consultas y JSON de métricas
+│   └── ab_test_onboarding.py     # Experiment inference and business brief
+├── 05_powerbi/
+│   ├── 01_star_schema.md         # Relationships and model design
+│   ├── 02_power_query_steps.md   # Reproducible Power Query transformations
+│   ├── 03_dax_measures.md        # DAX measure library
+│   └── 04_dashboard_guide.md     # Three-page dashboard specification
+├── data/raw/                     # Deliberately imperfect source files
+├── data/clean/                   # Validated analytical layer and panel
+├── outputs/                      # Query results, model artefacts, and figures
+├── 4_WEEK_LEARNING_PATH.md       # Guided exercises using this repository
+├── requirements.txt
+└── run_all.py                    # Full reproducible pipeline
 ```
 
-## Cómo ejecutarlo
+The Power BI folder contains a complete model, transformation, measure, and
+dashboard blueprint. A `.pbix` binary is intentionally not included.
+
+## Run the project
+
+Python 3.11 or later is recommended.
 
 ```bash
-pip install -r requirements.txt
-python run_all.py          # todo, en orden, unos 20 segundos
+python3 -m venv .venv
+source .venv/bin/activate
+python3 -m pip install -r requirements.txt
+python3 run_all.py
 ```
 
-O paso a paso:
+The full pipeline regenerates the raw extracts, cleans the data, rebuilds the
+SQLite database, executes every SQL query, trains the models, runs the experiment,
+and recreates all outputs.
+
+To run individual stages:
 
 ```bash
-python 01_data/generate_raw_data.py         # datos crudos
-python 01_data/clean_data.py                # limpieza
-python 01_data/build_sqlite.py              # base de datos
-python 02_sql/run_sql.py                    # 31 consultas -> outputs/sql_results/
-python 03_python/01_panel_y_metricas.py     # panel + métricas + figuras 1-3
-python 03_python/02_modelos.py              # modelos + figuras 4-7
-python 04_experiment/ab_test_onboarding.py  # experimento + figura 8
+python3 01_data/generate_raw_data.py
+python3 01_data/clean_data.py
+python3 01_data/build_sqlite.py
+python3 02_sql/run_sql.py
+python3 03_python/01_panel_and_metrics.py
+python3 03_python/02_models.py
+python3 04_experiment/ab_test_onboarding.py
 ```
 
-Consultar la base directamente:
+The generated SQLite database is excluded from version control. Rebuild it with
+`python3 run_all.py`, or query it after generation with:
 
 ```bash
 sqlite3 db/restaurant_saas.db < 02_sql/04_saas_metrics.sql
 ```
 
----
+## Methodological choices
 
-## Decisiones de método que se pueden defender en una entrevista
+- **Independent metric reconciliation.** MRR and active-customer counts are
+  implemented separately in SQL and pandas. The pipeline fails if the two
+  results disagree beyond the defined tolerance.
+- **Explicit business definitions.** Active customers are measured at month-end,
+  and monthly churn uses the previous month-end base as its denominator. These
+  conventions live in `02_sql/00_schema.sql`.
+- **Time-aware validation.** The GMV model trains through April 2026 and tests on
+  later months. This prevents future periods from leaking into the training set.
+- **Leakage-safe preprocessing.** Scaling and one-hot encoding remain inside the
+  scikit-learn pipelines and are fitted independently within validation folds.
+- **Baseline comparison.** The GMV model is tested against the transparent rule
+  “next month equals this month.” Its MAE improvement is modest, which is reported
+  openly rather than hidden behind a strong R².
+- **Imbalance-aware churn evaluation.** Because churn is uncommon, model quality
+  is assessed with AUC, average precision, recall, and top-decile capture—not
+  accuracy alone.
+- **Pragmatic segmentation.** Silhouette scores are flat across plausible values
+  of k. Four segments are retained for commercial usability, with this limitation
+  recorded in the output.
+- **Experiment checks before outcomes.** Sample ratio mismatch and covariate
+  balance are reviewed before treatment effects. The adjusted model improves
+  precision; it is not presented as a remedy for failed randomisation.
 
-**Las métricas se calculan dos veces, por dos caminos.** El MRR y los clientes
-activos se calculan en SQL y otra vez en pandas, y el script falla si no
-coinciden al céntimo. Es la forma barata de detectar que una misma definición se
-ha implementado de dos maneras distintas.
+## Data quality and reproducibility
 
-**Las definiciones están escritas, no supuestas.** «Activo en el mes M» es la
-foto a último día de mes; el churn del mes M se divide entre la base al cierre de
-M-1. Con otra convención salen otros números, y por eso la convención vive en
-`02_sql/00_schema.sql`.
+All data is **synthetic** and generated with a fixed seed. No restaurant or
+customer is real. The simulation includes seasonality, adoption ramps, plan
+changes, discounts, support demand, and a latent customer-health process that
+creates realistic pre-churn decline.
 
-**Partición temporal, no aleatoria.** Con datos de panel, una partición aleatoria
-mete filas del mismo restaurante en entrenamiento y en prueba, y filtra
-información del futuro. Aquí se entrena hasta abril de 2026 y se valida de mayo
-en adelante.
+The raw layer is intentionally messy: dates use multiple formats, market codes
+appear in several variants, some decimal values use commas, currency symbols are
+embedded in text, nulls appear as strings, duplicate rows are present, and
+categorical values use inconsistent case. Cleaning these issues is part of the
+analysis rather than a hidden prerequisite.
 
-**Todo el preprocesado va dentro del `Pipeline`.** Escalar o codificar antes de
-la validación cruzada contamina cada pliegue con la media del conjunto completo.
+Because the data-generating process is known, the experiment also has a ground
+truth. The programmed onboarding effect is +35%; the estimated +49% uplift has a
+95% confidence interval that contains that true value. This illustrates why the
+interval is more informative than the point estimate alone.
 
-**Siempre hay una línea base.** La regresión de GMV se compara con «el mes que
-viene será como este»: el modelo la mejora solo un **1,8 % de MAE**. Es un
-resultado honesto y útil —el mes anterior ya contiene casi toda la información— y
-evita presentar un R² de 0,87 como si fuera mérito del modelo.
+## Limitations
 
-**Con clases desbalanceadas no se mira la exactitud.** Con un 3,5 % de bajas,
-predecir «no se va nadie» acierta el 96,5 %. Por eso se usa `class_weight`
-balanceado y se reportan AUC, precisión-recall y —sobre todo— cuántas bajas se
-capturan si el equipo solo puede llamar al 10 % de la cartera.
+- Twenty months of observations are insufficient for robust year-over-year
+  seasonality estimates.
+- Logistic regression favours interpretability; a more complex model could
+  improve discrimination at the cost of transparency.
+- The project does not include acquisition or service-cost data, so LTV/CAC and
+  experiment ROI cannot be estimated responsibly.
+- Synthetic evidence demonstrates analytical technique, not external validity
+  for a real company or market.
 
-**El número de clusters no lo eligen los datos.** La silueta es plana (~0,14)
-para cualquier k entre 2 y 6: la cartera es un continuo, no tiene grupos
-naturales. Se fija k = 4 por criterio de negocio —los playbooks que el equipo
-comercial puede mantener— y se dice explícitamente, en lugar de disfrazarlo de
-hallazgo.
+## Author
 
-**En el experimento, primero las comprobaciones.** Antes de mirar el resultado:
-reparto de la muestra (SRM) y equilibrio de covariables (máxima diferencia
-estandarizada de 0,08, muy por debajo del 0,10 habitual). El OLS con covariables
-no corrige un sesgo —la aleatorización ya lo hace—, sino que reduce la varianza.
-
-**Y se dice también lo que el experimento NO puede ver.** Con 284 restaurantes
-solo se detectan efectos del 31 % o mayores con una potencia del 80 %. Para
-confirmar un +10 % harían falta unos 1.400 restaurantes por grupo. «No
-significativo» no habría querido decir «no funciona».
-
----
-
-## Sobre los datos
-
-Los datos son **sintéticos**, generados por `01_data/generate_raw_data.py` con
-semilla fija, y ningún restaurante es real. La simulación incluye estacionalidad
-mensual y semanal, curva de arranque, cambios de plan, descuentos, tickets de
-soporte y una «salud» latente que hace que los negocios se apaguen antes de
-cancelar.
-
-Los CSV crudos vienen **sucios a propósito**: fechas en dos formatos, códigos de
-mercado en tres variantes, decimales con coma en cuatro de los ficheros
-mensuales, importes con la divisa pegada, nulos escritos como `"NULL"`, filas
-duplicadas y estados en mayúsculas y minúsculas. La limpieza forma parte del
-proyecto; no es un paso que se dé por hecho.
-
-Que los datos sean simulados tiene una ventaja poco habitual: **se conoce la
-respuesta correcta**. El efecto real del nuevo onboarding programado en el
-generador es **+35 %**; el experimento lo estima en **+49 %, con un intervalo del
-+27 % al +72 %** que contiene el valor verdadero. Es la mejor ilustración posible
-de por qué se reporta un intervalo y no un punto.
-
-*(Los comentarios del código van sin tildes, a propósito, para que los ficheros
-`.py` y `.sql` sean seguros en cualquier codificación y consola.)*
-
-## Limitaciones
-
-- Un solo periodo de 20 meses: no hay histórico suficiente para medir
-  estacionalidad interanual con solidez.
-- El modelo de baja usa regresión logística por interpretabilidad; un gradient
-  boosting subiría el AUC unas centésimas a cambio de perder la lectura directa
-  de los coeficientes.
-- El informe de Power BI está documentado (modelo, M y DAX) pero no se incluye el
-  `.pbix`, que es un binario.
-- No hay datos de coste (CAC, coste de servir), así que no se calculan LTV/CAC ni
-  el retorno del experimento.
+**Mayte Cabrera** · [GitHub](https://github.com/meicm94)

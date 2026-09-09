@@ -1,0 +1,46 @@
+{
+  "max_standardized_balance_difference": 0.079,
+  "primary": {
+    "n_control": 148,
+    "n_treatment": 136,
+    "control_mean": 32.37,
+    "treatment_mean": 48.29,
+    "difference": 15.92,
+    "uplift_pct": 49.2,
+    "confidence_interval_95": [
+      8.68,
+      23.16
+    ],
+    "uplift_confidence_interval_95_pct": [
+      26.8,
+      71.6
+    ],
+    "p_welch": 2e-05,
+    "p_mann_whitney": 2e-05
+  },
+  "adjusted_ols": {
+    "effect_pct": 49.7,
+    "confidence_interval_95_pct": [
+      27.5,
+      75.8
+    ],
+    "p": 0.0,
+    "r2": 0.297
+  },
+  "secondary_metrics": {
+    "gmv_30d_uplift_pct": 47.4,
+    "gmv_30d_p": 3e-05,
+    "control_day_7_activation": 0.9392,
+    "treatment_day_7_activation": 1.0,
+    "day_7_activation_p": 0.00347,
+    "control_day_90_retention": 0.8815,
+    "treatment_day_90_retention": 0.9115,
+    "day_90_retention_p": 0.44211,
+    "tickets_30d_p": 0.6398
+  },
+  "power": {
+    "mde_pct": 31.4,
+    "observed_effect_power": 0.992,
+    "sample_size_per_group_for_10pct": 1388
+  }
+}

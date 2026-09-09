@@ -1,156 +1,208 @@
-# Power Query: los pasos de limpieza, uno a uno
+# Power Query Cleaning Steps
 
-Cada apartado hace lo mismo que `01_data/clean_data.py`, pero en M. Se incluye el
-código para pegarlo en el editor avanzado.
+These examples reproduce the main transformations in
+`01_data/clean_data.py` using Power Query M. Replace the placeholder paths with
+a parameter such as `DataPath` before using the code in Power BI Desktop.
 
-Un principio: **plegar** la consulta (query folding) siempre que se pueda y hacer
-los filtros lo antes posible; cuanto más arriba se descarta una fila, menos
-trabajo hay aguas abajo.
+Where the source supports query folding, filter early and preserve folding for
+as long as possible. CSV files do not fold, but early row and column reduction
+still lowers memory use and refresh time.
 
----
+## 1. Combine monthly order files
 
-## 1. Pedidos: combinar una carpeta de ficheros mensuales
-
-`data/raw/orders/` tiene un CSV por mes. En lugar de 20 consultas, se conecta a
-**la carpeta** y se combinan. Así, cuando llegue el mes siguiente, basta con
-dejar el fichero en la carpeta y actualizar.
+Connect to `data/raw/orders/` as a folder rather than creating a query for each
+month. A new monthly file will then be included automatically at refresh.
 
 ```m
 let
-    Origen = Folder.Files("C:\...\data\raw\orders"),
-    SoloCsv = Table.SelectRows(Origen, each [Extension] = ".csv"),
-    Combinados = Table.Combine(
-        List.Transform(SoloCsv[Content],
-            each Csv.Document(_, [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]))),
-    Encabezados = Table.PromoteHeaders(Combinados, [PromoteAllScalars = true]),
-    // los ficheros de algunos meses vienen con coma decimal: se normaliza ANTES de convertir
-    ComaAPunto = Table.TransformColumns(Encabezados,
-        {{"order_value_eur", each Text.Replace(_, ",", "."), type text}}),
-    Tipos = Table.TransformColumnTypes(ComaAPunto, {
-        {"order_id", type text}, {"restaurant_id", type text},
-        {"order_date", type date}, {"order_value_eur", type number},
-        {"order_channel", type text}, {"fulfilment_type", type text},
-        {"order_status", type text}}),
-    // dos ficheros traen filas repetidas por un reproceso del ETL de origen
-    SinDuplicados = Table.Distinct(Tipos, {"order_id"}),
-    // el estado viene en mayusculas, minusculas y capitalizado
-    EstadoNormalizado = Table.TransformColumns(SinDuplicados,
-        {{"order_status", Text.Lower, type text}}),
-    Completados = Table.AddColumn(EstadoNormalizado, "is_completed",
-        each if [order_status] = "completed" then 1 else 0, Int64.Type)
+    Source = Folder.Files(DataPath & "/raw/orders"),
+    CsvFiles = Table.SelectRows(Source, each [Extension] = ".csv"),
+    Imported = Table.AddColumn(
+        CsvFiles,
+        "Rows",
+        each Table.PromoteHeaders(
+            Csv.Document(
+                [Content],
+                [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]
+            ),
+            [PromoteAllScalars = true]
+        )
+    ),
+    Combined = Table.Combine(Imported[Rows]),
+    DecimalNormalised = Table.TransformColumns(
+        Combined,
+        {{"order_value_eur", each Text.Replace(Text.From(_), ",", "."), type text}}
+    ),
+    Typed = Table.TransformColumnTypes(
+        DecimalNormalised,
+        {
+            {"order_id", type text},
+            {"restaurant_id", type text},
+            {"order_date", type date},
+            {"order_value_eur", Currency.Type},
+            {"order_channel", type text},
+            {"fulfilment_type", type text},
+            {"order_status", type text}
+        },
+        "en-US"
+    ),
+    Deduplicated = Table.Distinct(Typed, {"order_id"}),
+    StatusNormalised = Table.TransformColumns(
+        Deduplicated,
+        {{"order_status", each Text.Lower(Text.Trim(_)), type text}}
+    ),
+    CompletedFlag = Table.AddColumn(
+        StatusNormalised,
+        "is_completed",
+        each if [order_status] = "completed" then 1 else 0,
+        Int64.Type
+    )
 in
-    Completados
+    CompletedFlag
 ```
 
-**Trampa que evitar:** convertir a número antes de cambiar la coma por el punto.
-Con configuración regional inglesa, `"27,50"` se convierte en `2750` sin dar
-ningún error. Son datos silenciosamente multiplicados por cien.
+Normalise decimal separators before changing the data type. Under an English
+locale, a text value such as `"27,50"` can otherwise be interpreted incorrectly
+without producing an obvious refresh error.
 
----
+## 2. Clean restaurant attributes
 
-## 2. Restaurantes: fechas en dos formatos, texto sucio y duplicados
+The restaurant extract contains duplicate keys, multiple date formats,
+inconsistent market codes, whitespace, and placeholder categories.
 
 ```m
 let
-    Origen = Csv.Document(File.Contents("...\restaurants_raw.csv"),
-        [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
-    Encabezados = Table.PromoteHeaders(Origen, [PromoteAllScalars = true]),
-    SinDuplicados = Table.Distinct(Encabezados, {"restaurant_id"}),
-    // mercado: conviven "DK", "dk" y "Denmark"
-    MercadoNormalizado = Table.AddColumn(SinDuplicados, "market_iso", each
-        let m = Text.Lower(Text.Trim([market])) in
-        if List.Contains({"dk", "denmark"}, m) then "DK"
-        else if List.Contains({"uk", "united kingdom"}, m) then "UK"
-        else if List.Contains({"de", "germany"}, m) then "DE"
-        else if List.Contains({"no", "norway"}, m) then "NO"
-        else if List.Contains({"se", "sweden"}, m) then "SE"
-        else "SIN MAPEAR", type text),
-    // ciudad: espacios sobrantes y capitalizacion inconsistente
-    CiudadLimpia = Table.TransformColumns(MercadoNormalizado,
-        {{"city", each Text.Proper(Text.Trim(_)), type text}}),
-    // fecha: unas filas vienen dd/MM/yyyy y otras yyyy-MM-dd
-    FechaAlta = Table.AddColumn(CiudadLimpia, "signup", each
-        if Text.Contains([signup_date], "/")
-        then Date.FromText([signup_date], [Format = "dd/MM/yyyy"])
-        else Date.FromText([signup_date], [Format = "yyyy-MM-dd"]), type date),
-    // categoria: "", "N/A" y "unknown" son lo mismo
-    CocinaLimpia = Table.TransformColumns(FechaAlta, {{"cuisine_type", each
-        let v = Text.Trim(_ ?? "") in
-        if List.Contains({"", "N/A", "unknown"}, v) then "Unknown" else v, type text}}),
-    Cohorte = Table.AddColumn(CocinaLimpia, "signup_cohort",
-        each Date.ToText([signup], [Format = "yyyy-MM"]), type text),
-    Final = Table.RemoveColumns(Cohorte, {"market", "signup_date"})
+    Source = Csv.Document(
+        File.Contents(DataPath & "/raw/restaurants_raw.csv"),
+        [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]
+    ),
+    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+    Deduplicated = Table.Distinct(Headers, {"restaurant_id"}),
+    MarketISO = Table.AddColumn(
+        Deduplicated,
+        "market_iso",
+        each
+            let market = Text.Lower(Text.Trim([market]))
+            in
+                if List.Contains({"dk", "denmark"}, market) then "DK"
+                else if List.Contains({"uk", "united kingdom"}, market) then "UK"
+                else if List.Contains({"de", "germany"}, market) then "DE"
+                else if List.Contains({"no", "norway"}, market) then "NO"
+                else if List.Contains({"se", "sweden"}, market) then "SE"
+                else "UNMAPPED",
+        type text
+    ),
+    CityClean = Table.TransformColumns(
+        MarketISO,
+        {{"city", each Text.Proper(Text.Trim(_)), type text}}
+    ),
+    SignupDate = Table.AddColumn(
+        CityClean,
+        "signup",
+        each
+            if Text.Contains([signup_date], "/")
+            then Date.FromText([signup_date], [Format = "dd/MM/yyyy"])
+            else Date.FromText([signup_date], [Format = "yyyy-MM-dd"]),
+        type date
+    ),
+    CuisineClean = Table.TransformColumns(
+        SignupDate,
+        {{"cuisine_type", each
+            let value = Text.Trim(_ ?? "")
+            in if List.Contains({"", "N/A", "unknown"}, value)
+               then "Unknown" else value,
+          type text}}
+    ),
+    SignupCohort = Table.AddColumn(
+        CuisineClean,
+        "signup_cohort",
+        each Date.ToText([signup], [Format = "yyyy-MM"]),
+        type text
+    ),
+    Final = Table.RemoveColumns(SignupCohort, {"market", "signup_date"})
 in
     Final
 ```
 
-**Comprobación imprescindible:** después del paso de mercado, filtrar por
-`"SIN MAPEAR"` y confirmar que salen cero filas. Un `else "SIN MAPEAR"` que nadie
-mira es una fuga silenciosa de datos.
+After creating `market_iso`, filter for `UNMAPPED` and confirm that the result is
+empty. An unused fallback category can conceal a silent data-quality failure.
 
----
-
-## 3. Suscripciones: nulos falsos y números con divisa
+## 3. Clean subscription intervals
 
 ```m
 let
-    Origen = ..., Encabezados = Table.PromoteHeaders(Origen),
-    // "" y el texto "NULL" tienen que ser nulo de verdad para que las medidas
-    // de suscripcion vigente funcionen
-    NulosReales = Table.TransformColumns(Encabezados, {{"end_date", each
-        if _ = null or _ = "" or _ = "NULL" then null else _, type nullable text}}),
-    FechaBaja = Table.TransformColumnTypes(NulosReales,
-        {{"end_date", type nullable date}, {"start_date", type date}}),
-    // el MRR viene como "99,00 EUR" en parte de las filas
-    MrrTexto = Table.TransformColumns(FechaBaja, {{"mrr_eur", each
-        Text.Replace(Text.Replace(Text.Trim(_), " EUR", ""), ",", "."), type text}}),
-    MrrNumero = Table.TransformColumnTypes(MrrTexto, {{"mrr_eur", type number}}),
-    // plan_id trae espacios: si no se recortan, la relacion con dim_plan falla
-    ClaveLimpia = Table.TransformColumns(MrrNumero, {{"plan_id", Text.Trim, type text}}),
-    Vigente = Table.AddColumn(ClaveLimpia, "is_active",
-        each if [end_date] = null then 1 else 0, Int64.Type)
+    Source = Csv.Document(
+        File.Contents(DataPath & "/raw/subscriptions_raw.csv"),
+        [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]
+    ),
+    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+    RealNulls = Table.TransformColumns(
+        Headers,
+        {{"end_date", each
+            if _ = null or Text.Trim(Text.From(_)) = "" or Text.Upper(Text.Trim(Text.From(_))) = "NULL"
+            then null else _,
+          type nullable text}}
+    ),
+    DatesTyped = Table.TransformColumnTypes(
+        RealNulls,
+        {{"start_date", type date}, {"end_date", type nullable date}}
+    ),
+    MrrText = Table.TransformColumns(
+        DatesTyped,
+        {{"mrr_eur", each
+            Text.Replace(Text.Replace(Text.Trim(Text.From(_)), " EUR", ""), ",", "."),
+          type text}}
+    ),
+    MrrTyped = Table.TransformColumnTypes(MrrText, {{"mrr_eur", Currency.Type}}, "en-US"),
+    KeysClean = Table.TransformColumns(
+        MrrTyped,
+        {{"plan_id", Text.Trim, type text}, {"restaurant_id", Text.Trim, type text}}
+    ),
+    CurrentFlag = Table.AddColumn(
+        KeysClean,
+        "is_current",
+        each if [end_date] = null then 1 else 0,
+        Int64.Type
+    )
 in
-    Vigente
+    CurrentFlag
 ```
 
-**Trampa que evitar:** dejar `"NULL"` como texto. La relación sigue funcionando y
-el informe no da error: simplemente cuenta como bajas a clientes que siguen
-activos, y nadie lo nota hasta que alguien lo compara con facturación.
+The string `"NULL"` must become a true null. Leaving it as text causes open
+subscriptions to be treated as closed while the model still refreshes normally.
 
----
+## 4. Create a date table in M
 
-## 4. Tabla de fechas
-
-Se puede cargar `dim_date.csv`, pero es más robusto generarla en M para que
-cubra siempre todo el rango de los hechos:
+The repository includes `dim_date.csv`, but generating the table in M is useful
+when the reporting horizon should extend automatically.
 
 ```m
 let
-    Inicio = #date(2025, 1, 1),
-    Fin = #date(2026, 12, 31),
-    Dias = List.Dates(Inicio, Duration.Days(Fin - Inicio) + 1, #duration(1, 0, 0, 0)),
-    Tabla = Table.FromList(Dias, Splitter.SplitByNothing(), {"date"}),
-    Tipos = Table.TransformColumnTypes(Tabla, {{"date", type date}}),
-    Columnas = Table.AddColumn(Table.AddColumn(Table.AddColumn(Table.AddColumn(
-        Tipos, "year", each Date.Year([date]), Int64.Type),
-        "month_number", each Date.Month([date]), Int64.Type),
-        "year_month", each Date.ToText([date], [Format = "yyyy-MM"]), type text),
-        "month_start", each Date.StartOfMonth([date]), type date)
+    StartDate = #date(2025, 1, 1),
+    EndDate = #date(2026, 12, 31),
+    Dates = List.Dates(
+        StartDate,
+        Duration.Days(EndDate - StartDate) + 1,
+        #duration(1, 0, 0, 0)
+    ),
+    DateTable = Table.FromList(Dates, Splitter.SplitByNothing(), {"date"}),
+    Typed = Table.TransformColumnTypes(DateTable, {{"date", type date}}),
+    Year = Table.AddColumn(Typed, "year", each Date.Year([date]), Int64.Type),
+    MonthNumber = Table.AddColumn(Year, "month_number", each Date.Month([date]), Int64.Type),
+    MonthName = Table.AddColumn(MonthNumber, "month_name", each Date.MonthName([date]), type text),
+    YearMonth = Table.AddColumn(MonthName, "year_month", each Date.ToText([date], "yyyy-MM"), type text),
+    MonthStart = Table.AddColumn(YearMonth, "month_start", each Date.StartOfMonth([date]), type date)
 in
-    Columnas
+    MonthStart
 ```
 
----
+## Quality checklist
 
-## Buenas prácticas que se aplican en todas las consultas
-
-1. **Renombrar los pasos** en castellano y con sentido. `#"Tipo cambiado1"` no
-   dice nada dentro de tres meses.
-2. **Nada de rutas absolutas repetidas**: crear un parámetro `RutaDatos` y
-   referenciarlo. Cambiar de carpeta pasa a ser un único cambio.
-3. **Deshabilitar la carga** de las consultas intermedias (clic derecho y quitar
-   «Habilitar carga») para que no aparezcan como tablas en el modelo.
-4. **Quitar columnas pronto**, no al final: reduce memoria y acelera la
-   actualización.
-5. **No usar la detección automática de tipos** sobre ficheros con
-   configuraciones regionales mezcladas; se hace a mano, columna a columna.
+- Create one `DataPath` parameter rather than repeating absolute file paths.
+- Give steps descriptive names; avoid defaults such as `Changed Type1`.
+- Disable load for staging queries that should not appear in the semantic model.
+- Remove unused columns early.
+- Define types explicitly, including locale, when files mix regional formats.
+- Check uniqueness on dimension keys and order IDs.
+- Confirm that no market is `UNMAPPED` and no subscription period is invalid.
+- Reconcile row counts and financial totals with the Python clean layer.

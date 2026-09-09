@@ -1,0 +1,16 @@
+{
+  "period": "2025-01 to 2026-08",
+  "restaurants": 600,
+  "total_orders": 254131,
+  "total_gmv_eur": 7587255.52,
+  "latest_month_active_customers": 443,
+  "latest_month_mrr_eur": 61803.45,
+  "latest_month_arr_eur": 741641.4,
+  "latest_month_arpu_eur": 139.51,
+  "average_order_value_eur": 31.25,
+  "average_monthly_churn_12m_pct": 4.06,
+  "average_nrr_12m_pct": 98.1,
+  "average_month_3_retention_pct": 89.3,
+  "average_month_6_retention_pct": 77.5,
+  "average_mrr_growth_6m_pct": 8.04
+}

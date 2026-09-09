@@ -1,0 +1,5 @@
+ticket_band,restaurants,churned_customers,churn_pct,average_csat
+0 tickets,124,37,29.8,
+1-2 tickets,216,65,30.1,3.87
+3-5 tickets,158,47,29.7,3.82
+6 or more tickets,102,19,18.6,3.82

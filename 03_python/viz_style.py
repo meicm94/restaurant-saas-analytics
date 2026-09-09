@@ -1,10 +1,8 @@
-"""
-Estilo comun de los graficos del proyecto.
+"""Shared chart style for the project.
 
-Paleta categorica validada para daltonismo (deuteranopia, protanopia,
-tritanopia) sobre fondo claro: se usan las tres primeras ranuras para series
-independientes y la rampa azul para escalas continuas (mapas de calor).
-Los colores nunca son la unica codificacion: siempre hay leyenda o etiqueta.
+The categorical palette remains distinguishable across common forms of colour
+vision deficiency on a light background. Colour is never the only encoding;
+charts also use labels, legends, or distinct positions.
 """
 import matplotlib as mpl
 import matplotlib.pyplot as plt
@@ -14,10 +12,10 @@ INK = "#0b0b0b"
 INK_SOFT = "#52514e"
 GRID = "#e3e2de"
 
-# categoricos (orden fijo, nunca ciclado)
+# Fixed categorical palette.
 BLUE, ORANGE, AQUA, YELLOW, RED = "#2a78d6", "#eb6834", "#1baf7a", "#eda100", "#e34948"
 CAT = [BLUE, ORANGE, AQUA]
-# rampa secuencial azul claro -> oscuro (magnitud continua)
+# Light-to-dark blue ramp for continuous magnitudes.
 SEQ = ["#cde2fb", "#b7d3f6", "#9ec5f4", "#86b6ef", "#6da7ec", "#5598e7",
        "#3987e5", "#2a78d6", "#256abf", "#1c5cab", "#184f95", "#104281"]
 
@@ -59,7 +57,7 @@ def despine(ax, left=False):
 
 
 def title(ax, headline, sub=None):
-    """Titular en negro y subtitulo en gris, ambos alineados a la izquierda."""
+    """Add a left-aligned headline and optional subtitle."""
     ax.text(0, 1.11 if sub else 1.03, headline, transform=ax.transAxes,
             fontsize=11, fontweight="bold", color=INK, va="bottom")
     if sub:
@@ -70,4 +68,4 @@ def title(ax, headline, sub=None):
 def save(fig, path):
     fig.savefig(path, bbox_inches="tight")
     plt.close(fig)
-    print(f"  figura -> {path.name}")
+    print(f"  figure -> {path.name}")

@@ -1,48 +1,44 @@
 -- =====================================================================
--- 00_schema.sql - modelo de datos y convenciones
--- Base: db/restaurant_saas.db (SQLite 3.45)
+-- 00_schema.sql - data model and analytical conventions
+-- Database: db/restaurant_saas.db (SQLite)
 -- =====================================================================
 --
--- MODELO EN ESTRELLA
+-- STAR SCHEMA
 --
---   dim_restaurant (600)          dim_plan (4)         dim_date (608 dias)
+--   dim_restaurant (600)          dim_plan (4)         dim_date (608 days)
 --        |                            |                      |
 --        +--------+-------------------+----------+-----------+
 --                 |                              |
---          fact_subscription (701)         fact_order (249.957)
---          fact_support_ticket (2.127)     fact_campaign_assignment (683)
+--          fact_subscription (701)         fact_order (~250k)
+--          fact_support_ticket (~2.1k)     fact_campaign_assignment (683)
 --                                          dim_campaign (3)
 --
--- GRANULARIDAD
---   fact_order              1 fila = 1 pedido
---   fact_subscription       1 fila = 1 "spell": tramo continuo de un
---                           restaurante en un mismo plan. Un cambio de plan
---                           cierra el tramo a fin de mes y abre otro el dia 1
---                           del mes siguiente, por lo que un restaurante nunca
---                           tiene dos tramos vivos en el mismo mes.
---   fact_support_ticket     1 fila = 1 ticket
+-- GRAIN
+--   fact_order              1 row = 1 order
+--   fact_subscription       1 row = 1 continuous subscription period for one
+--                           restaurant and plan. A plan change closes the current
+--                           period at month-end and opens another on day one of
+--                           the next month, preventing overlapping active periods.
+--   fact_support_ticket     1 row = 1 support ticket
 --
--- CONVENCIONES DE NEGOCIO (importantes: definen todas las metricas)
---   * Activo en el mes M  = tramo con start_date <= fin de M
---                           y (end_date IS NULL O end_date >= fin de M).
---                           Es decir, foto a ultimo dia de mes.
---   * Baja en el mes M    = tramo con end_type = 'churn' y end_date dentro
---                           de M. Cuenta como activo en M y desaparece en M+1.
---   * Churn rate de M     = bajas en M / activos a cierre de M-1.
---   * GMV                 = suma de order_value_eur SOLO de pedidos
---                           'completed'. Los 'cancelled' y 'refunded' se
---                           excluyen de ingresos pero se conservan en la tabla.
---   * MRR                 = suma de mrr_eur de los tramos activos. Ojo: el
---                           precio de lista del plan NO es el MRR, porque hay
---                           descuentos (discount_pct).
---   * Ingresos totales    = MRR + comision sobre GMV (commission_rate del plan).
---   * Permanencia minima  = el contrato obliga a dos meses. Por eso ninguna
---                           cohorte pierde clientes en M0 ni en M1, y la primera
---                           baja posible aparece en M2.
+-- BUSINESS CONVENTIONS
+--   * Active in month M    = start_date <= month-end and
+--                           (end_date IS NULL OR end_date >= month-end).
+--                           Metrics therefore use a month-end snapshot.
+--   * Churn in month M     = end_type = 'churn' and end_date falls within M.
+--                           The customer is active in M and absent from M+1.
+--   * Customer churn rate = customers lost in M / active customers at M-1 close.
+--   * GMV                 = order_value_eur for completed orders only. Cancelled
+--                           and refunded orders remain in the fact table but are
+--                           excluded from revenue metrics.
+--   * MRR                 = mrr_eur for active subscription periods. List price
+--                           is not MRR because discounts may apply.
+--   * Total revenue       = MRR + GMV commission at the applicable plan rate.
+--   * Minimum term        = two months, so cohorts retain 100% in M0 and M1;
+--                           the earliest possible churn appears in M2.
 --
--- PORTABILIDAD A T-SQL / MICROSOFT FABRIC
---   Las consultas usan solo ANSI SQL + funciones de ventana. Al llevarlas a
---   T-SQL hay que cambiar:
+-- PORTABILITY TO T-SQL / MICROSOFT FABRIC
+--   The queries use ANSI SQL plus window functions. For T-SQL, replace:
 --     SQLite                                  T-SQL / Fabric
 --     ------------------------------------    -----------------------------
 --     strftime('%Y-%m', d)                    FORMAT(d,'yyyy-MM')
@@ -52,36 +48,36 @@
 --     CAST(x AS REAL)                         CAST(x AS FLOAT)
 --     IFNULL(a,b)                             ISNULL(a,b) / COALESCE(a,b)
 --     LIMIT 10                                TOP (10)
---   Las fechas se guardan como TEXT 'YYYY-MM-DD' porque SQLite no tiene tipo
---   DATE; en T-SQL serian DATE nativas.
+--   Dates are stored as ISO TEXT ('YYYY-MM-DD') because SQLite has no native
+--   DATE storage class. They would be native DATE values in T-SQL.
 --
--- COMO EJECUTAR
---   python 02_sql/run_sql.py            (ejecuta todo y exporta a outputs/sql_results)
+-- HOW TO RUN
+--   python 02_sql/run_sql.py            (run all queries and export CSV results)
 --   sqlite3 db/restaurant_saas.db < 02_sql/04_saas_metrics.sql
 -- =====================================================================
 
--- >>> tablas
-SELECT name AS tabla,
-       (SELECT COUNT(*) FROM pragma_table_info(m.name)) AS n_columnas
+-- >>> tables
+SELECT name AS table_name,
+       (SELECT COUNT(*) FROM pragma_table_info(m.name)) AS n_columns
 FROM sqlite_master AS m
 WHERE type = 'table' AND name NOT LIKE 'sqlite_%'
 ORDER BY name;
 
--- >>> control_un_tramo_activo_por_mes
--- Comprobacion de la convencion: ningun restaurante puede tener dos tramos
--- vivos en la misma foto de fin de mes.
-WITH meses AS (
-    SELECT DISTINCT month_start AS mes,
-           date(month_start, '+1 month', '-1 day') AS fin_mes
+-- >>> one_active_subscription_per_month_check
+-- Integrity check: a restaurant cannot have overlapping active subscriptions
+-- in the same month-end snapshot.
+WITH months AS (
+    SELECT DISTINCT month_start AS month,
+           date(month_start, '+1 month', '-1 day') AS month_ends
     FROM dim_date
 )
-SELECT COUNT(*) AS meses_con_solape
+SELECT COUNT(*) AS overlapping_restaurant_months
 FROM (
-    SELECT m.mes, s.restaurant_id, COUNT(*) AS tramos
-    FROM meses AS m
+    SELECT m.month, s.restaurant_id, COUNT(*) AS subscription_periods
+    FROM months AS m
     JOIN fact_subscription AS s
-      ON s.start_date <= m.fin_mes
-     AND (s.end_date IS NULL OR s.end_date >= m.fin_mes)
-    GROUP BY m.mes, s.restaurant_id
+      ON s.start_date <= m.month_ends
+     AND (s.end_date IS NULL OR s.end_date >= m.month_ends)
+    GROUP BY m.month, s.restaurant_id
     HAVING COUNT(*) > 1
 );

@@ -2,19 +2,18 @@
 """
 Restaurant SaaS Revenue, Retention & Experimentation Analytics
 --------------------------------------------------------------
-Paso 1: generacion del dataset ficticio (datos "crudos", con suciedad
-intencionada para practicar limpieza en Power Query / pandas).
+Step 1: generate a synthetic raw dataset with deliberate quality issues for
+data-cleaning practice in Power Query and pandas.
 
-Simula una plataforma SaaS que vende a restaurantes un sistema de pedidos
-online de marca propia:
-  - los restaurantes pagan una suscripcion mensual (MRR)
-  - procesan pedidos a traves de la plataforma (GMV) y pagan comision
-  - abren tickets de soporte
-  - algunos cancelan (churn)
-  - una campana de onboarding se lanza como experimento A/B aleatorizado
+The simulation represents a white-label online ordering platform:
+  - restaurants pay a monthly subscription (MRR)
+  - processed orders generate GMV and commission revenue
+  - restaurants raise support tickets
+  - some restaurants churn
+  - a new onboarding flow is launched as a randomized A/B experiment
 
-Salida: data/raw/**  (CSV crudos)
-Ejecutar:  python 01_data/generate_raw_data.py
+Output: data/raw/**
+Run:    python 01_data/generate_raw_data.py
 """
 from __future__ import annotations
 
@@ -37,10 +36,10 @@ PERIOD_START = pd.Timestamp("2025-01-01")
 PERIOD_END = pd.Timestamp("2026-08-31")
 
 # ----------------------------------------------------------------------
-# Catalogos
+# Business parameters
 # ----------------------------------------------------------------------
 MARKETS = {
-    #        peso   multiplicador de demanda  multiplicador de churn
+    #        weight  demand multiplier  churn multiplier
     "DK": (0.42, 1.00, 1.00),
     "UK": (0.24, 1.15, 1.20),
     "DE": (0.16, 0.95, 1.10),
@@ -55,7 +54,7 @@ CITIES = {
     "SE": ["Stockholm", "Gothenburg", "Malmo", "Uppsala"],
 }
 CUISINES = {
-    #               peso  demanda  ticket medio (EUR)
+    #               weight  demand  average order value (EUR)
     "Pizza":       (0.22, 1.20, 26.0),
     "Sushi":       (0.12, 0.85, 42.0),
     "Burger":      (0.15, 1.10, 24.0),
@@ -67,7 +66,7 @@ CUISINES = {
     "Vegetarian":  (0.05, 0.70, 29.0),
 }
 PLANS = {
-    # plan_id, nombre, precio mensual EUR, comision sobre GMV, multiplicador demanda
+    # plan_id, name, monthly price EUR, GMV commission, demand multiplier
     "PL-01": ("Starter", 49.0, 0.030, 0.90),
     "PL-02": ("Growth", 99.0, 0.020, 1.00),
     "PL-03": ("Pro", 199.0, 0.012, 1.15),
@@ -76,24 +75,24 @@ PLANS = {
 PLAN_ORDER = ["PL-01", "PL-02", "PL-03", "PL-04"]
 CHANNELS = ["Direct sales", "Inbound", "Partner", "Referral", "Paid search"]
 CHURN_REASONS = [
-    ("Precio", 0.24),
-    ("Poco volumen de pedidos", 0.28),
-    ("Se pasa a la competencia", 0.16),
-    ("Cierra el negocio", 0.14),
-    ("Insatisfaccion con el servicio", 0.11),
-    ("Impago", 0.07),
+    ("Price", 0.24),
+    ("Low order volume", 0.28),
+    ("Switched to a competitor", 0.16),
+    ("Business closure", 0.14),
+    ("Service dissatisfaction", 0.11),
+    ("Non-payment", 0.07),
 ]
 SEASONALITY = {1: 0.92, 2: 0.95, 3: 1.00, 4: 1.02, 5: 1.05, 6: 0.98,
                7: 0.88, 8: 0.90, 9: 1.04, 10: 1.08, 11: 1.10, 12: 1.20}
-WEEKDAY_W = np.array([0.11, 0.10, 0.11, 0.13, 0.19, 0.21, 0.15])  # lun..dom
-RAMP = np.array([0.55, 0.78, 0.92, 1.00, 1.03, 1.05])             # curva de arranque
+WEEKDAY_W = np.array([0.11, 0.10, 0.11, 0.13, 0.19, 0.21, 0.15])  # Mon..Sun
+RAMP = np.array([0.55, 0.78, 0.92, 1.00, 1.03, 1.05])             # onboarding ramp
 
-# Experimento A/B de onboarding
+# Onboarding A/B experiment
 EXP_ID = "CMP-003"
 EXP_FROM = pd.Timestamp("2025-10-01")
 EXP_TO = pd.Timestamp("2026-06-30")
-TRUE_UPLIFT = 0.35          # efecto real sobre pedidos en los primeros 30 dias
-TRUE_UPLIFT_RETENTION = 0.70  # multiplicador de churn en los 3 primeros meses
+TRUE_UPLIFT = 0.35            # true effect on orders in the first 30 days
+TRUE_UPLIFT_RETENTION = 0.70  # churn multiplier during the first three months
 
 
 def month_start(ts: pd.Timestamp) -> pd.Timestamp:
@@ -109,7 +108,7 @@ def add_month(ts: pd.Timestamp) -> pd.Timestamp:
 
 
 # ----------------------------------------------------------------------
-# 1. Restaurantes
+# 1. Restaurants
 # ----------------------------------------------------------------------
 market_keys = list(MARKETS)
 market_p = np.array([MARKETS[m][0] for m in market_keys])
@@ -119,7 +118,7 @@ cuisine_keys = list(CUISINES)
 cuisine_p = np.array([CUISINES[c][0] for c in cuisine_keys])
 cuisine_p = cuisine_p / cuisine_p.sum()
 
-# meses de alta: de 2025-01 a 2026-07 con tendencia creciente de captacion
+# Sign-up months with a gradually increasing acquisition trend
 signup_months = pd.date_range("2025-01-01", "2026-08-01", freq="MS")
 signup_w = np.linspace(1.0, 2.1, len(signup_months))
 signup_w = signup_w / signup_w.sum()
@@ -140,14 +139,14 @@ for i in range(N_RESTAURANTS):
     signup = base_month.replace(day=day)
 
     demand = (
-        rng.lognormal(mean=np.log(32), sigma=0.55)   # pedidos/mes en regimen
+        rng.lognormal(mean=np.log(32), sigma=0.55)   # steady-state orders/month
         * MARKETS[market][1]
         * CUISINES[cuisine][1]
         * size_mult
         * (1.45 if is_chain else 1.0)
     )
     aov_mu = np.log(CUISINES[cuisine][2] * rng.normal(1.0, 0.10))
-    # plan inicial correlacionado con el tamano esperado
+    # Initial plan is correlated with expected restaurant volume
     if demand > 72:
         p_plan = [0.02, 0.20, 0.48, 0.30]
     elif demand > 42:
@@ -175,18 +174,17 @@ for i in range(N_RESTAURANTS):
             delivery_share=float(np.clip(rng.normal(0.62, 0.18), 0.1, 0.95)),
             ticket_prone=float(rng.gamma(2.0, 0.18)),
             initial_plan=rng.choice(PLAN_ORDER, p=p_plan),
-            frailty=float(rng.normal(0, 0.55)),  # heterogeneidad no observada en churn
+            frailty=float(rng.normal(0, 0.55)),  # unobserved churn heterogeneity
         )
     )
 
 rest = pd.DataFrame(restaurants)
 
-# Asignacion del experimento de onboarding
-# Aleatorizacion ESTRATIFICADA (block randomization) por mercado, tamano de
-# ciudad y si es cadena: dentro de cada estrato se alterna control/tratamiento
-# sobre un orden aleatorio. Es lo que se hace en la practica cuando la muestra
-# es pequena y las covariables pesan mucho, y evita que el azar deje un grupo
-# con muchos mas restaurantes grandes que el otro.
+# Onboarding experiment assignment
+# Stratified block randomization by market, city size, and chain status. Within
+# each stratum, control and treatment labels alternate over a randomized order.
+# This protects covariate balance in a modest sample and reduces the chance that
+# one arm contains substantially more large restaurants than the other.
 eligible = rest["signup_date"].between(EXP_FROM, EXP_TO).to_numpy()
 strata = (rest["market"] + "|" + rest["city_size"] + "|" + rest["is_chain"].astype(str)).to_numpy()
 groups = np.array([None] * len(rest), dtype=object)
@@ -194,13 +192,13 @@ elig_idx = np.where(eligible)[0]
 for s in np.unique(strata[elig_idx]):
     idx = rng.permutation(elig_idx[strata[elig_idx] == s])
     labels = np.resize(np.array(["control", "treatment"]), len(idx))
-    if rng.random() < 0.5:      # alterna el arranque del bloque para no
-        labels = labels[::-1]   # sesgar sistematicamente el tamano de los grupos
+    if rng.random() < 0.5:      # Alternate the first label so odd-sized strata
+        labels = labels[::-1]   # do not systematically favor one experiment arm
     groups[idx] = labels
 rest["exp_group"] = [g if isinstance(g, str) else None for g in groups]
 
 # ----------------------------------------------------------------------
-# 2. Bucle mensual: suscripciones, pedidos, tickets, churn
+# 2. Monthly simulation: subscriptions, orders, tickets, and churn
 # ----------------------------------------------------------------------
 sub_rows, order_rows, ticket_rows = [], [], []
 order_seq = 0
@@ -216,9 +214,9 @@ for r in rest.itertuples(index=False):
 
     cur = month_start(r.signup_date)
     m = 0
-    # "salud" latente del restaurante: paseo aleatorio que hace que el negocio
-    # gane o pierda tiron con el tiempo. Es lo que produce trayectorias de
-    # caida sostenida antes de una baja, en lugar de bajas puramente aleatorias.
+    # Latent restaurant health follows a random walk. This produces realistic
+    # activity trajectories, including sustained decline before churn, instead
+    # of making churn a purely random event.
     health = 0.0
     churned = False
     churn_date = None
@@ -245,7 +243,7 @@ for r in rest.itertuples(index=False):
             * (days_active / days_in_month)
         )
 
-        # efecto real del nuevo onboarding: solo los primeros 30 dias de vida
+        # The onboarding uplift applies only during the first 30 days
         if isinstance(r.exp_group, str) and r.exp_group == "treatment":
             win_end = r.signup_date + timedelta(days=30)
             overlap = (min(m_end, win_end) - m_start).days + 1
@@ -283,7 +281,7 @@ for r in rest.itertuples(index=False):
                     )
                 )
 
-        # tickets de soporte
+        # Support tickets
         n_tickets = int(rng.poisson(r.ticket_prone * (1.9 if m == 0 else 1.0)))
         for _ in range(n_tickets):
             ticket_seq += 1
@@ -294,7 +292,7 @@ for r in rest.itertuples(index=False):
                     r.restaurant_id,
                     d.date().isoformat(),
                     rng.choice(
-                        ["Tecnico", "Facturacion", "Onboarding", "Menu", "Pagos"],
+                        ["Technical", "Billing", "Onboarding", "Menu", "Payments"],
                         p=[0.34, 0.20, 0.18, 0.17, 0.11],
                     ),
                     round(float(rng.gamma(2.0, 6.0)), 1),
@@ -302,7 +300,7 @@ for r in rest.itertuples(index=False):
                 )
             )
 
-        # --- decision de churn al cierre de mes ---
+        # --- Churn decision at month-end ---
         expected = r.base_demand * ramp * SEASONALITY[cur.month] * (days_active / days_in_month)
         activity_ratio = n_orders / max(expected, 1.0)
         z = (
@@ -322,8 +320,8 @@ for r in rest.itertuples(index=False):
             p_churn *= TRUE_UPLIFT_RETENTION
 
         end_of_month = month_end(cur)
-        # m >= 1: el contrato tiene una permanencia minima de dos meses, asi que
-        # la primera baja posible se materializa al cierre del segundo mes.
+        # The contract has a two-month minimum term, so the first possible churn
+        # event is recorded at the end of the second month.
         if m >= 1 and rng.random() < p_churn and end_of_month <= PERIOD_END:
             churned = True
             churn_date = end_of_month
@@ -345,7 +343,7 @@ for r in rest.itertuples(index=False):
             )
             break
 
-        # --- cambio de plan (upgrade / downgrade) ---
+        # --- Plan change (upgrade/downgrade) ---
         idx = PLAN_ORDER.index(plan)
         p_up = 0.020 + 0.05 * max(0.0, activity_ratio - 1.15)
         p_down = 0.010 + 0.05 * max(0.0, 0.70 - activity_ratio)
@@ -407,7 +405,7 @@ tickets = pd.DataFrame(
 )
 
 # ----------------------------------------------------------------------
-# 3. Campanas
+# 3. Campaigns
 # ----------------------------------------------------------------------
 campaigns = pd.DataFrame(
     [
@@ -425,7 +423,7 @@ campaigns = pd.DataFrame(
 
 assign_rows = []
 for r in rest.itertuples(index=False):
-    if isinstance(r.exp_group, str):   # pandas convierte None en NA, no en None
+    if isinstance(r.exp_group, str):   # pandas represents missing values as NA
         assign_rows.append(
             dict(campaign_id=EXP_ID, restaurant_id=r.restaurant_id,
                  assignment_group=r.exp_group, assigned_date=r.signup_date.date().isoformat())
@@ -449,7 +447,7 @@ plans_df = pd.DataFrame(
 )
 
 # ----------------------------------------------------------------------
-# 4. Ensuciar y escribir los CSV crudos
+# 4. Introduce controlled quality issues and write raw CSV files
 # ----------------------------------------------------------------------
 def dirty_restaurants(df: pd.DataFrame) -> pd.DataFrame:
     out = df[["restaurant_id", "restaurant_name", "market", "city", "city_size",
@@ -506,10 +504,10 @@ campaigns.to_csv(RAW / "campaigns_raw.csv", index=False)
 assignments.to_csv(RAW / "campaign_assignments_raw.csv", index=False)
 plans_df.to_csv(RAW / "plans_raw.csv", index=False)
 
-# pedidos: un fichero por mes (patron "combinar archivos de una carpeta" en Power Query)
+# One order file per month to reproduce Power Query's folder-combine pattern
 orders["_month"] = orders["order_date"].str.slice(0, 7)
-comma_months = {"2025-03", "2025-04", "2025-11", "2026-02"}   # decimales con coma
-dupe_months = {"2025-06", "2026-05"}                           # filas duplicadas
+comma_months = {"2025-03", "2025-04", "2025-11", "2026-02"}  # decimal commas
+dupe_months = {"2025-06", "2026-05"}                          # duplicate rows
 for month, g in orders.groupby("_month", sort=True):
     g = g.drop(columns="_month").copy()
     if month in comma_months:
@@ -527,10 +525,10 @@ for month, g in orders.groupby("_month", sort=True):
     g.to_csv(RAW / "orders" / f"orders_{month}.csv", index=False)
 
 n_files = len(list((RAW / 'orders').glob('*.csv')))
-print(f"Restaurantes .......... {len(rest):>7,}")
-print(f"Suscripciones ......... {len(subs):>7,}  (activas: {(subs.end_type == 'active').sum():,})")
-print(f"Pedidos ............... {len(orders):>7,}  en {n_files} ficheros mensuales")
-print(f"Tickets de soporte .... {len(tickets):>7,}")
-print(f"Asignaciones campana .. {len(assignments):>7,}")
-print(f"Grupo experimento ..... {rest['exp_group'].value_counts().to_dict()}")
-print(f"CSV crudos escritos en: {RAW}")
+print(f"Restaurants ........... {len(rest):>7,}")
+print(f"Subscriptions ......... {len(subs):>7,}  (active: {(subs.end_type == 'active').sum():,})")
+print(f"Orders ................ {len(orders):>7,}  across {n_files} monthly files")
+print(f"Support tickets ....... {len(tickets):>7,}")
+print(f"Campaign assignments .. {len(assignments):>7,}")
+print(f"Experiment groups ..... {rest['exp_group'].value_counts().to_dict()}")
+print(f"Raw CSV files written to: {RAW}")

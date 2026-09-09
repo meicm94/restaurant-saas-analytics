@@ -1,0 +1,4 @@
+order_status,revenue_treatment,orders,pct_orders,order_value_eur
+completed,Included in revenue,242786,95.54,7587255.52
+cancelled,Excluded from revenue,8297,3.26,261986.04
+refunded,Excluded from revenue,3048,1.2,94597.13

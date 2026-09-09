@@ -1,139 +1,134 @@
 -- =====================================================================
--- 06_experiment.sql - lectura del experimento A/B en SQL
--- Campana CMP-003 "New onboarding flow": los restaurantes dados de alta
--- entre 2026-02-01 y 2026-06-30 se reparten al azar entre control y
--- tratamiento. Metrica principal: pedidos completados en los 30 primeros
--- dias de vida del restaurante.
+-- 06_experiment.sql - A/B experiment analysis in SQL
+-- CMP-003 "New onboarding flow": eligible restaurants are randomised between
+-- control and treatment. The primary outcome is completed orders during each
+-- restaurant's first 30 days.
 --
--- El analisis estadistico completo (intervalos, OLS) esta en
--- 04_experiment/ab_test_onboarding.py. Aqui se calculan los agregados,
--- que es lo que normalmente se pide en una prueba tecnica.
+-- Confidence intervals, power, and adjusted OLS analysis are implemented in
+-- 04_experiment/ab_test_onboarding.py. This file provides the SQL aggregates.
 -- =====================================================================
 
--- >>> equilibrio_de_grupos
--- Antes de mirar el resultado: comprobar que la aleatorizacion dejo grupos
--- comparables. Si aqui hay diferencias grandes, el resultado no vale.
+-- >>> group_balance
+-- Validate group balance before reviewing outcomes.
 WITH exp AS (
-    SELECT a.restaurant_id, a.assignment_group AS grupo, r.market, r.city_size,
+    SELECT a.restaurant_id, a.assignment_group AS assignment_group, r.market, r.city_size,
            r.cuisine_type, r.is_chain, r.acquisition_channel, r.signup_date
     FROM fact_campaign_assignment AS a
     JOIN dim_restaurant AS r USING (restaurant_id)
     WHERE a.campaign_id = 'CMP-003'
 )
-SELECT grupo,
-       COUNT(*)                                                          AS restaurantes,
+SELECT assignment_group,
+       COUNT(*)                                                          AS restaurants,
        ROUND(100.0 * SUM(CASE WHEN market = 'DK' THEN 1 ELSE 0 END) / COUNT(*), 1) AS pct_dk,
        ROUND(100.0 * SUM(CASE WHEN city_size = 'Metro' THEN 1 ELSE 0 END) / COUNT(*), 1) AS pct_metro,
-       ROUND(100.0 * SUM(is_chain) / COUNT(*), 1)                        AS pct_cadena,
+       ROUND(100.0 * SUM(is_chain) / COUNT(*), 1)                        AS pct_chain,
        ROUND(100.0 * SUM(CASE WHEN acquisition_channel = 'Direct sales' THEN 1 ELSE 0 END)
-             / COUNT(*), 1)                                              AS pct_venta_directa,
-       MIN(signup_date)                                                  AS primera_alta,
-       MAX(signup_date)                                                  AS ultima_alta
+             / COUNT(*), 1)                                              AS pct_direct_sales,
+       MIN(signup_date)                                                  AS earliest_signup,
+       MAX(signup_date)                                                  AS latest_signup
 FROM exp
-GROUP BY grupo
-ORDER BY grupo;
+GROUP BY assignment_group
+ORDER BY assignment_group;
 
--- >>> resultado_principal
--- Pedidos completados en los primeros 30 dias, por grupo.
--- Se excluyen los restaurantes que no han cumplido 30 dias dentro del
--- periodo de datos, para no comparar ventanas de distinta longitud.
+-- >>> primary_result
+-- Completed orders during the first 30 days by assignment group. Restaurants
+-- without a complete 30-day observation window are excluded.
 WITH exp AS (
-    SELECT a.restaurant_id, a.assignment_group AS grupo, r.signup_date,
-           date(r.signup_date, '+29 days') AS fin_ventana
+    SELECT a.restaurant_id, a.assignment_group AS assignment_group, r.signup_date,
+           date(r.signup_date, '+29 days') AS window_end
     FROM fact_campaign_assignment AS a
     JOIN dim_restaurant AS r USING (restaurant_id)
     WHERE a.campaign_id = 'CMP-003'
       AND date(r.signup_date, '+29 days') <= '2026-08-31'
 ),
-por_restaurante AS (
+by_restaurant AS (
     SELECT e.restaurant_id,
-           e.grupo,
-           COUNT(o.order_id)                    AS pedidos_30d,
+           e.assignment_group,
+           COUNT(o.order_id)                    AS orders_30d,
            IFNULL(SUM(o.order_value_eur), 0)    AS gmv_30d,
-           MAX(CASE WHEN o.order_date <= date(e.signup_date, '+6 days') THEN 1 ELSE 0 END) AS activado_7d
+           MAX(CASE WHEN o.order_date <= date(e.signup_date, '+6 days') THEN 1 ELSE 0 END) AS activated_7d
     FROM exp AS e
     LEFT JOIN fact_order AS o
            ON o.restaurant_id = e.restaurant_id
           AND o.order_status = 'completed'
-          AND o.order_date BETWEEN e.signup_date AND e.fin_ventana
-    GROUP BY e.restaurant_id, e.grupo
+          AND o.order_date BETWEEN e.signup_date AND e.window_end
+    GROUP BY e.restaurant_id, e.assignment_group
 )
-SELECT grupo,
-       COUNT(*)                                     AS restaurantes,
-       ROUND(AVG(pedidos_30d), 2)                   AS pedidos_30d_medios,
-       ROUND(AVG(gmv_30d), 2)                       AS gmv_30d_medio_eur,
-       ROUND(100.0 * AVG(activado_7d), 1)           AS activacion_7d_pct,
-       -- desviacion tipica muestral, necesaria para el intervalo de confianza
-       ROUND(SQRT(SUM((pedidos_30d - (SELECT AVG(p2.pedidos_30d) FROM por_restaurante AS p2
-                                      WHERE p2.grupo = por_restaurante.grupo))
-                      * (pedidos_30d - (SELECT AVG(p2.pedidos_30d) FROM por_restaurante AS p2
-                                        WHERE p2.grupo = por_restaurante.grupo)))
-                  / (COUNT(*) - 1)), 2)             AS desv_tipica_pedidos
-FROM por_restaurante
-GROUP BY grupo
-ORDER BY grupo;
+SELECT assignment_group,
+       COUNT(*)                                     AS restaurants,
+       ROUND(AVG(orders_30d), 2)                    AS average_orders_30d,
+       ROUND(AVG(gmv_30d), 2)                       AS average_gmv_30d_eur,
+       ROUND(100.0 * AVG(activated_7d), 1)          AS activation_7d_pct,
+       -- Sample standard deviation, required for the confidence interval.
+       ROUND(SQRT(SUM((orders_30d - (SELECT AVG(p2.orders_30d) FROM by_restaurant AS p2
+                                      WHERE p2.assignment_group = by_restaurant.assignment_group))
+                      * (orders_30d - (SELECT AVG(p2.orders_30d) FROM by_restaurant AS p2
+                                        WHERE p2.assignment_group = by_restaurant.assignment_group)))
+                  / (COUNT(*) - 1)), 2)             AS orders_30d_stddev
+FROM by_restaurant
+GROUP BY assignment_group
+ORDER BY assignment_group;
 
--- >>> diferencia_y_uplift
--- La diferencia entre grupos en una sola fila, que es lo que acaba en el
--- resumen para negocio.
+-- >>> difference_and_uplift
+-- Treatment-control difference and uplift in one business-facing row.
 WITH exp AS (
-    SELECT a.restaurant_id, a.assignment_group AS grupo, r.signup_date,
-           date(r.signup_date, '+29 days') AS fin_ventana
+    SELECT a.restaurant_id, a.assignment_group AS assignment_group, r.signup_date,
+           date(r.signup_date, '+29 days') AS window_end
     FROM fact_campaign_assignment AS a
     JOIN dim_restaurant AS r USING (restaurant_id)
     WHERE a.campaign_id = 'CMP-003'
       AND date(r.signup_date, '+29 days') <= '2026-08-31'
 ),
-por_restaurante AS (
-    SELECT e.restaurant_id, e.grupo,
-           COUNT(o.order_id)                 AS pedidos_30d,
+by_restaurant AS (
+    SELECT e.restaurant_id, e.assignment_group,
+           COUNT(o.order_id)                 AS orders_30d,
            IFNULL(SUM(o.order_value_eur), 0) AS gmv_30d
     FROM exp AS e
     LEFT JOIN fact_order AS o
            ON o.restaurant_id = e.restaurant_id
           AND o.order_status = 'completed'
-          AND o.order_date BETWEEN e.signup_date AND e.fin_ventana
-    GROUP BY e.restaurant_id, e.grupo
+          AND o.order_date BETWEEN e.signup_date AND e.window_end
+    GROUP BY e.restaurant_id, e.assignment_group
 ),
-medias AS (
-    SELECT AVG(CASE WHEN grupo = 'treatment' THEN pedidos_30d END) AS trat_pedidos,
-           AVG(CASE WHEN grupo = 'control'   THEN pedidos_30d END) AS ctrl_pedidos,
-           AVG(CASE WHEN grupo = 'treatment' THEN gmv_30d END)     AS trat_gmv,
-           AVG(CASE WHEN grupo = 'control'   THEN gmv_30d END)     AS ctrl_gmv
-    FROM por_restaurante
+means AS (
+    SELECT AVG(CASE WHEN assignment_group = 'treatment' THEN orders_30d END) AS trat_orders,
+           AVG(CASE WHEN assignment_group = 'control'   THEN orders_30d END) AS ctrl_orders,
+           AVG(CASE WHEN assignment_group = 'treatment' THEN gmv_30d END)     AS trat_gmv,
+           AVG(CASE WHEN assignment_group = 'control'   THEN gmv_30d END)     AS ctrl_gmv
+    FROM by_restaurant
 )
-SELECT ROUND(ctrl_pedidos, 2)                                          AS control_pedidos_30d,
-       ROUND(trat_pedidos, 2)                                          AS tratamiento_pedidos_30d,
-       ROUND(trat_pedidos - ctrl_pedidos, 2)                           AS diferencia_pedidos,
-       ROUND(100.0 * (trat_pedidos - ctrl_pedidos) / ctrl_pedidos, 1)  AS uplift_pedidos_pct,
+SELECT ROUND(ctrl_orders, 2)                                          AS control_orders_30d,
+       ROUND(trat_orders, 2)                                          AS treatment_orders_30d,
+       ROUND(trat_orders - ctrl_orders, 2)                           AS difference_orders,
+       ROUND(100.0 * (trat_orders - ctrl_orders) / ctrl_orders, 1)  AS uplift_orders_pct,
        ROUND(ctrl_gmv, 2)                                              AS control_gmv_30d,
-       ROUND(trat_gmv, 2)                                              AS tratamiento_gmv_30d,
+       ROUND(trat_gmv, 2)                                              AS treatment_gmv_30d,
        ROUND(100.0 * (trat_gmv - ctrl_gmv) / ctrl_gmv, 1)              AS uplift_gmv_pct
-FROM medias;
+FROM means;
 
--- >>> retencion_a_90_dias
--- Metrica secundaria: seguian activos 90 dias despues del alta?
--- Solo se incluyen los que ya han tenido tiempo de cumplirlos.
+-- >>> day_90_retention
+-- Secondary outcome: active subscription 90 days after signup. Include only
+-- restaurants with a complete observation window.
 WITH exp AS (
-    SELECT a.restaurant_id, a.assignment_group AS grupo, r.signup_date,
-           date(r.signup_date, '+90 days') AS corte
+    SELECT a.restaurant_id, a.assignment_group AS assignment_group, r.signup_date,
+           date(r.signup_date, '+90 days') AS day_90
     FROM fact_campaign_assignment AS a
     JOIN dim_restaurant AS r USING (restaurant_id)
     WHERE a.campaign_id = 'CMP-003'
       AND date(r.signup_date, '+90 days') <= '2026-08-31'
 )
-SELECT e.grupo,
-       COUNT(*)                                                   AS restaurantes,
+SELECT e.assignment_group,
+       COUNT(*)                                                   AS restaurants,
        SUM(CASE WHEN EXISTS (SELECT 1 FROM fact_subscription AS s
                              WHERE s.restaurant_id = e.restaurant_id
-                               AND s.start_date <= e.corte
-                               AND (s.end_date IS NULL OR s.end_date >= e.corte))
-                THEN 1 ELSE 0 END)                                AS activos_a_90d,
+                               AND s.start_date <= e.day_90
+                               AND (s.end_date IS NULL OR s.end_date >= e.day_90))
+                THEN 1 ELSE 0 END)                                AS active_at_90d,
        ROUND(100.0 * SUM(CASE WHEN EXISTS (SELECT 1 FROM fact_subscription AS s
                                            WHERE s.restaurant_id = e.restaurant_id
-                                             AND s.start_date <= e.corte
-                                             AND (s.end_date IS NULL OR s.end_date >= e.corte))
-                              THEN 1 ELSE 0 END) / COUNT(*), 1)   AS retencion_90d_pct
+                                             AND s.start_date <= e.day_90
+                                             AND (s.end_date IS NULL OR s.end_date >= e.day_90))
+                              THEN 1 ELSE 0 END) / COUNT(*), 1)   AS retention_90d_pct
 FROM exp AS e
-GROUP BY e.grupo
-ORDER BY e.grupo;
+GROUP BY e.assignment_group
+ORDER BY e.assignment_group;

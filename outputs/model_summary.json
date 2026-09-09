@@ -1,0 +1,43 @@
+{
+  "gmv_regression": {
+    "test_r2": 0.87,
+    "test_mae_eur": 383.83,
+    "test_rmse_eur": 587.38,
+    "baseline_r2": 0.867,
+    "baseline_mae_eur": 390.77,
+    "mean_cross_validation_r2": 0.85,
+    "std_cross_validation_r2": 0.048,
+    "train_rows": 2366,
+    "test_rows": 1006
+  },
+  "churn_classification": {
+    "mean_cross_validation_auc": 0.697,
+    "std_cross_validation_auc": 0.035,
+    "test_auc": 0.739,
+    "test_average_precision": 0.118,
+    "test_churn_base_rate": 0.0355,
+    "precision": 0.072,
+    "recall": 0.676,
+    "accuracy": 0.678,
+    "threshold": 0.5,
+    "churn_capture_at_top_10pct": 0.324,
+    "lift_at_top_10pct": 3.24
+  },
+  "segmentation": {
+    "selected_k": 4,
+    "silhouette": 0.141,
+    "k_selection_rationale": "Silhouette scores were broadly flat; k=4 was selected for commercial usability.",
+    "segments": {
+      "High-Value Orders": 136,
+      "Long Tail": 137,
+      "Volume Engine": 174,
+      "Support Intensive": 45
+    },
+    "churn_pct_by_segment": {
+      "High-Value Orders": 0.243,
+      "Long Tail": 0.394,
+      "Volume Engine": 0.184,
+      "Support Intensive": 0.289
+    }
+  }
+}

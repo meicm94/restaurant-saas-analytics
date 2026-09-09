@@ -1,0 +1,4 @@
+campaign_id,campaign_name,campaign_type,budget_eur,campaign_class,assigned_restaurants,assignment_groups
+CMP-001,Referral push Q3 2025,referral,45000,Targeted campaign,45,1
+CMP-002,Winback DK 2026,winback,28000,Targeted campaign,31,1
+CMP-003,New onboarding flow (A/B test),onboarding,60000,A/B experiment,284,2
